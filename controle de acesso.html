@@ -28,6 +28,16 @@
     const statusEl = document.getElementById('status');
     const historicoEl = document.getElementById('historico');
 
+    // Função para detectar dispositivo
+    function detectarDispositivo() {
+      const ua = navigator.userAgent;
+      if (/Mobi|Android|iPhone/i.test(ua)) {
+        return "Celular";
+      } else {
+        return "Computador";
+      }
+    }
+
     // Conecta ao servidor WebSocket
     const socket = new WebSocket("ws://localhost:8080");
 
@@ -35,14 +45,16 @@
       const hora = new Date().toLocaleTimeString();
       const dados = JSON.parse(event.data);
 
+      const dispositivo = detectarDispositivo();
+
       if (dados.status === "online") {
         statusEl.textContent = "Online";
         statusEl.className = "online";
-        historicoEl.innerHTML += `<li>${hora} - Rede Online ✅</li>`;
+        historicoEl.innerHTML += `<li>${hora} - Rede Online ✅ | Dispositivo: ${dispositivo}</li>`;
       } else {
         statusEl.textContent = "Offline";
         statusEl.className = "offline";
-        historicoEl.innerHTML += `<li>${hora} - Rede Offline ❌</li>`;
+        historicoEl.innerHTML += `<li>${hora} - Rede Offline ❌ | Dispositivo: ${dispositivo}</li>`;
       }
     };
   </script>
