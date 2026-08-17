@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cronograma Empresarial</title>
+  <style>
+    body { font-family: Arial; background: #000; color: #fff; margin: 0; }
+    header { background: #ff0000; padding: 20px; text-align: center; }
+    h1 { margin: 0; color: #ffcc00; }
+    .container { padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ffcc00; padding: 10px; text-align: center; }
+    th { background: #111; color: #ffcc00; }
+    tr:nth-child(even) { background: #222; }
+    input { width: 90%; padding: 5px; border-radius: 5px; border: 1px solid #ffcc00; background: #111; color: #fff; }
+    button { background: #ffcc00; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px; }
+    button:hover { background: #ff0000; color: #fff; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cronograma Empresarial</h1>
+    <p>Organização de tarefas e prazos</p>
+  </header>
+
+  <div class="container">
+    <h2 style="color:#ffcc00;">Adicionar Tarefa</h2>
+    <input id="tarefa" placeholder="Nome da tarefa">
+    <input id="responsavel" placeholder="Responsável">
+    <input id="prazo" type="date">
+    <button onclick="adicionarTarefa()">Adicionar</button>
+
+    <h2 style="color:#ffcc00;">Cronograma</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tarefa</th>
+          <th>Responsável</th>
+          <th>Prazo</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="cronograma"></tbody>
+    </table>
+  </div>
+
+  <script>
+    function adicionarTarefa() {
+      const tarefa = document.getElementById('tarefa').value;
+      const responsavel = document.getElementById('responsavel').value;
+      const prazo = document.getElementById('prazo').value;
+
+      if (tarefa && responsavel && prazo) {
+        const tabela = document.getElementById('cronograma');
+        const linha = document.createElement('tr');
+        linha.innerHTML = `
+          <td>${tarefa}</td>
+          <td>${responsavel}</td>
+          <td>${prazo}</td>
+          <td><button onclick="alterarStatus(this)">Pendente</button></td>
+          <td><button onclick="excluirTarefa(this)">Excluir</button></td>
+        `;
+        tabela.appendChild(linha);
+
+        salvarCronograma(tarefa, responsavel, prazo, "Pendente");
+        document.getElementById('tarefa').value = "";
+        document.getElementById('responsavel').value = "";
+        document.getElementById('prazo').value = "";
+      }
+    }
+
+    function alterarStatus(botao) {
+      if (botao.textContent === "Pendente") {
+        botao.textContent = "Concluído";
+        botao.style.background = "#00ff00";
+      } else {
+        botao.textContent = "Pendente";
+        botao.style.background = "#ffcc00";
+      }
+    }
+
+    function excluirTarefa(botao) {
+      const linha = botao.parentElement.parentElement;
+      const tarefa = linha.children[0].textContent;
+      linha.remove();
+
+      let cronograma = JSON.parse(localStorage.getItem("cronograma")) || [];
+      cronograma = cronograma.filter(item => item.tarefa !== tarefa);
+      localStorage.setItem("cronograma", JSON.stringify(cronograma));
+    }
+
+    function salvarCronograma(tarefa, responsavel, prazo, status) {
+      let cronograma = JSON.parse(localStorage.getItem("cronograma")) || [];
+      cronograma.push({ tarefa, responsavel, prazo, status });
+      localStorage.setItem("cronograma", JSON.stringify(cronograma));
+    }
+
+    function carregarCronograma() {
+      let cronograma = JSON.parse(localStorage.getItem("cronograma")) || [];
+      const tabela = document.getElementById('cronograma');
+      cronograma.forEach(item => {
+        const linha = document.createElement('tr');
+        linha.innerHTML = `
+          <td>${item.tarefa}</td>
+          <td>${item.responsavel}</td>
+          <td>${item.prazo}</td>
+          <td><button onclick="alterarStatus(this)">${item.status}</button></td>
+          <td><button onclick="excluirTarefa(this)">Excluir</button></td>
+        `;
+        tabela.appendChild(linha);
+      });
+    }
+
+    carregarCronograma();
+  </script>
+</body>
+</html>
