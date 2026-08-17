@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Monitoramento de Rede</title>
+  <title>Painel de Rede</title>
   <style>
     body { font-family: Arial; background: #000; color: #fff; margin: 0; }
     header { background: #ff0000; padding: 20px; text-align: center; }
@@ -10,56 +10,46 @@
     .card { background: #111; border: 2px solid #ffcc00; margin: 20px; padding: 15px; border-radius: 8px; }
     .online { color: #00ff00; font-weight: bold; }
     .offline { color: #ff0000; font-weight: bold; }
-    button { background: #ffcc00; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
+    button { background: #ffcc00; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-right: 10px; }
     button:hover { background: #ff0000; color: #fff; }
   </style>
 </head>
 <body>
   <header>
-    <h1>Monitoramento de Rede Empresarial</h1>
-    <p>Status em tempo real</p>
+    <h1>Painel de Monitoramento</h1>
+    <p>Controle de acessos e manutenção</p>
   </header>
 
   <div class="card">
-    <p>Status da Internet: <span id="status">Verificando...</span></p>
-    <button onclick="testarRede()">Testar Conexão</button>
-    <button onclick="abrirRelatorio()">Abrir cronograma</button>
+    <h2 style="color:#ffcc00;">Usuários Conectados</h2>
+    <ul id="usuarios"></ul>
+    <button onclick="registrarAcesso()">Registrar Acesso</button>
   </div>
 
   <div class="card">
-    <h2 style="color:#ffcc00;">Histórico de Conexão</h2>
-    <ul id="historico"></ul>
+    <h2 style="color:#ffcc00;">Manutenção</h2>
+    <button onclick="limparCache()">Limpar Cache</button>
+    <button onclick="reiniciarServico()">Reiniciar Serviço</button>
   </div>
 
   <script>
-    function verificarConexao() {
-      return navigator.onLine;
-    }
+    const usuariosEl = document.getElementById('usuarios');
 
-    function testarRede() {
-      const statusEl = document.getElementById('status');
-      const historicoEl = document.getElementById('historico');
+    function registrarAcesso() {
       const hora = new Date().toLocaleTimeString();
-
-      if (verificarConexao()) {
-        statusEl.textContent = "Online";
-        statusEl.className = "online";
-        historicoEl.innerHTML += `<li>${hora} - Online ✅</li>`;
-      } else {
-        statusEl.textContent = "Offline";
-        statusEl.className = "offline";
-        historicoEl.innerHTML += `<li>${hora} - Offline ❌</li>`;
+      const nome = prompt("Digite o nome do usuário:");
+      if (nome) {
+        usuariosEl.innerHTML += `<li>${hora} - ${nome} acessou ✅</li>`;
       }
     }
-function abrirRelatorio() {
-  window.location.href = "./cronograma.html";
-}
 
-    // Atualiza automaticamente
-    window.addEventListener('online', testarRede);
-    window.addEventListener('offline', testarRede);
+    function limparCache() {
+      alert("Cache limpo com sucesso!");
+    }
 
-    testarRede();
+    function reiniciarServico() {
+      alert("Serviço reiniciado!");
+    }
   </script>
 </body>
 </html>
