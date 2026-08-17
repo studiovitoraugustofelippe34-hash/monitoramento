@@ -29,11 +29,17 @@
       <p class="info">Valor: <strong>R$ 25,00</strong></p>
       <button onclick="confirmarPagamento('Pix')">Já paguei com Pix</button>
     </div>
+
+    <div class="card">
+      <h2 style="color:#ffcc00;">Teste Grátis</h2>
+      <p class="info">Aproveite um acesso gratuito por 24 horas.</p>
+      <button onclick="confirmarPagamento('Teste Grátis')">Usar Teste Grátis</button>
+    </div>
   </div>
 
   <script>
     function confirmarPagamento(tipo) {
-      alert("Pagamento confirmado via " + tipo + "! Acesso liberado.");
+      alert("Acesso liberado via " + tipo + "!");
       window.location.href = "./monitoramento.html"; // redireciona para área restrita
     }
   </script>
