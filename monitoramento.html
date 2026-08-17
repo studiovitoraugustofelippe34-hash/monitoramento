@@ -21,9 +21,9 @@
   </header>
 
   <div class="card">
-    <h2 style="color:#ffcc00;">Usuários Conectados</h2>
-    <ul id="usuarios"></ul>
-    <button onclick="registrarAcesso()">Registrar Acesso</button>
+    <h2 style="color:#ffcc00;">Monitoramento da Rede</h2>
+    <p>Status atual: <span id="status">Verificando...</span></p>
+    <ul id="historico"></ul>
     <button onclick="abrirControle()">Ir para Controle de Acesso</button>
     <button onclick="abrirCronograma()">Ir para Cronograma</button>
   </div>
@@ -35,15 +35,35 @@
   </div>
 
   <script>
-    const usuariosEl = document.getElementById('usuarios');
+    const statusEl = document.getElementById('status');
+    const historicoEl = document.getElementById('historico');
 
-    function registrarAcesso() {
+    function verificarConexao() {
+      return navigator.onLine;
+    }
+
+    function atualizarStatus() {
       const hora = new Date().toLocaleTimeString();
-      const nome = prompt("Digite o nome do usuário:");
-      if (nome) {
-        usuariosEl.innerHTML += `<li>${hora} - ${nome} acessou ✅</li>`;
+      if (verificarConexao()) {
+        statusEl.textContent = "Online";
+        statusEl.className = "online";
+        historicoEl.innerHTML += `<li>${hora} - Rede Online ✅</li>`;
+      } else {
+        statusEl.textContent = "Offline";
+        statusEl.className = "offline";
+        historicoEl.innerHTML += `<li>${hora} - Rede Offline ❌</li>`;
       }
     }
+
+    // Atualiza automaticamente a cada 5 segundos
+    setInterval(atualizarStatus, 5000);
+
+    // Também atualiza quando o navegador detecta mudança
+    window.addEventListener('online', atualizarStatus);
+    window.addEventListener('offline', atualizarStatus);
+
+    // Primeira verificação imediata
+    atualizarStatus();
 
     function limparCache() {
       alert("Cache limpo com sucesso!");
