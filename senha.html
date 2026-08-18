@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Acesso ao Relatório</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      text-align: center;
+      margin-top: 100px;
+    }
+    .login-box {
+      display: inline-block;
+      padding: 20px;
+      border: 2px solid yellow;
+      border-radius: 10px;
+      background-color: rgba(0,0,0,0.7);
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    .btn {
+      background: yellow;
+      color: black;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: white;
+      color: black;
+    }
+    h1 {
+      color: yellow;
+      font-size: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Monitoramento de Redes</h1>
+  <div class="login-box">
+    <p>Digite a senha para acessar o relatório:</p>
+    <input type="password" id="senha" placeholder="Senha">
+    <br>
+    <button class="btn" onclick="verificarSenha()">Entrar</button>
+    <p style="margin-top:15px;">🔑 A senha é: <strong>admin</strong></p>
+  </div>
+
+  <script>
+    function verificarSenha() {
+      const senha = document.getElementById("senha").value;
+      if (senha === "admin") {
+        alert("Acesso liberado!");
+        window.location.href = "./relatorio.html";
+      } else {
+        alert("Senha incorreta. Entre em contato pelo WhatsApp: (17) 99774-6829");
+      }
+    }
+  </script>
+</body>
+</html>

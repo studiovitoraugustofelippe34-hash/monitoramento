@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Relatório de Etapas</title>
+  <title>Registro de Etapas</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,7 +14,7 @@
     h1 {
       color: cyan;
     }
-    .relatorio {
+    .mensagem, .historico {
       margin-top: 30px;
       padding: 20px;
       background-color: #222;
@@ -22,16 +22,10 @@
       border-radius: 10px;
       display: inline-block;
       text-align: left;
-      width: 70%;
     }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      margin: 10px 0;
-      padding: 10px;
-      border-bottom: 1px solid cyan;
+    .historico {
+      margin-top: 20px;
+      width: 60%;
     }
     .btn {
       background: cyan;
@@ -47,6 +41,15 @@
       background: white;
       color: black;
     }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 5px 0;
+      padding: 5px;
+      border-bottom: 1px solid cyan;
+    }
     #bloqueio {
       margin-top: 50px;
       padding: 20px;
@@ -55,20 +58,16 @@
       border-radius: 10px;
       display: inline-block;
     }
-    input, textarea {
+    input {
       padding: 10px;
       border-radius: 5px;
       border: none;
       margin-top: 10px;
-      width: 80%;
-    }
-    textarea {
-      height: 100px;
     }
   </style>
 </head>
 <body>
-  <h1>Relatório de Etapas</h1>
+  <h1>Registro de Etapas</h1>
 
   <!-- Área de bloqueio -->
   <div id="bloqueio">
@@ -80,74 +79,66 @@
 
   <!-- Conteúdo protegido -->
   <div id="conteudo" style="display:none;">
-    <div class="relatorio">
-      <h3>Adicionar Relatório</h3>
-      <textarea id="novoRelatorio" placeholder="Digite aqui seu relatório..."></textarea>
-      <br>
-      <button class="btn" onclick="salvarRelatorio()">Salvar Relatório</button>
-    </div>
+    <div id="mensagem" class="mensagem"></div>
 
-    <div class="relatorio">
-      <h3>Histórico de Relatórios</h3>
+    <div class="historico">
+      <h3>Histórico de Registros</h3>
       <ul id="lista"></ul>
     </div>
 
-    <button class="btn" onclick="limpar()">Limpar Relatórios</button>
+    <button class="btn" onclick="voltar()">Voltar ao Cronograma</button>
   </div>
 
   <script>
     // Senha definida para acesso
-    const senhaCorreta = "admin"; // altere conforme necessário
+    const senhaCorreta = "12345"; // você pode mudar aqui
 
     function verificarSenha() {
       const senhaDigitada = document.getElementById("senha").value;
       if (senhaDigitada === senhaCorreta) {
         document.getElementById("bloqueio").style.display = "none";
         document.getElementById("conteudo").style.display = "block";
-        mostrarRelatorios();
+        carregarConteudo();
       } else {
         alert("Senha incorreta! Tente novamente.");
       }
     }
 
-    // Salvar relatório digitado
-    function salvarRelatorio() {
-      const texto = document.getElementById("novoRelatorio").value.trim();
-      if (texto) {
-        let relatorios = JSON.parse(localStorage.getItem("relatorios")) || [];
-        relatorios.push(texto);
-        localStorage.setItem("relatorios", JSON.stringify(relatorios));
-        document.getElementById("novoRelatorio").value = "";
-        mostrarRelatorios();
-      } else {
-        alert("Digite algo antes de salvar.");
-      }
+    // Função para pegar parâmetros da URL
+    function getParametro(nome) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(nome);
     }
 
-    // Exibir relatórios salvos
-    function mostrarRelatorios() {
-      let relatorios = JSON.parse(localStorage.getItem("relatorios")) || [];
+    // Carregar conteúdo protegido
+    function carregarConteudo() {
+      const mensagem = getParametro("msg");
+      if (mensagem) {
+        document.getElementById("mensagem").textContent = mensagem;
+        let registros = JSON.parse(localStorage.getItem("registros")) || [];
+        registros.push(mensagem);
+        localStorage.setItem("registros", JSON.stringify(registros));
+      } else {
+        document.getElementById("mensagem").textContent = "Nenhuma mensagem registrada.";
+      }
+      mostrarHistorico();
+    }
+
+    // Exibir histórico salvo
+    function mostrarHistorico() {
+      let registros = JSON.parse(localStorage.getItem("registros")) || [];
       const lista = document.getElementById("lista");
       lista.innerHTML = "";
-      if (relatorios.length === 0) {
+      registros.forEach(reg => {
         let li = document.createElement("li");
-        li.textContent = "Nenhum relatório encontrado.";
+        li.textContent = reg;
         lista.appendChild(li);
-      } else {
-        relatorios.forEach((rel, index) => {
-          let li = document.createElement("li");
-          li.textContent = `Relatório ${index + 1}: ${rel}`;
-          lista.appendChild(li);
-        });
-      }
+      });
     }
 
-    // Limpar relatórios
-    function limpar() {
-      if (confirm("Tem certeza que deseja limpar todos os relatórios?")) {
-        localStorage.removeItem("relatorios");
-        mostrarRelatorios();
-      }
+    // Função para voltar ao cronograma
+    function voltar() {
+      window.location.href = "./cronograma.html";
     }
   </script>
 </body>

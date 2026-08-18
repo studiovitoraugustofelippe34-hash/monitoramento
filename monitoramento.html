@@ -1,15 +1,135 @@
-<div class="card manutencao-card" onclick="abrirManutencao()">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Monitoramento de Redes Wi-Fi</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      margin: 50px; 
+      background-color: black; 
+      color: white; 
+    }
+    .card { 
+      border: 2px solid cyan; 
+      padding: 20px; 
+      border-radius: 10px; 
+      display: inline-block; 
+      background-color: #111; 
+      margin: 20px;
+    }
+    .btn { 
+      background: cyan; 
+      color: black; 
+      font-weight: bold; 
+      padding: 10px 20px; 
+      border: none; 
+      border-radius: 5px; 
+      cursor: pointer; 
+      margin: 10px;
+    }
+    .btn:hover { 
+      background: white; 
+      color: black; 
+    }
+    h1, h2, h3 { 
+      color: cyan; 
+    }
+    .form-box {
+      border: 2px solid cyan;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #222;
+      text-align: left;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      color: cyan;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Monitoramento de Redes Wi-Fi</h1>
 
-  <h2 style="color:#ffcc00;">Manutenção</h2>
+  <div class="card">
+    <h2>Serviço Premium</h2>
+    <p>✔ Monitoramento em tempo real da sua rede</p>
+    <p>✔ Detecção de intrusos e falhas</p>
+    <p>✔ Suporte técnico especializado</p>
+    <button class="btn" onclick="location.href='./usuario.html'">Usuários</button>
+    <button class="btn" onclick="location.href='./relatorio.html'">Relatórios</button>
+    <button class="btn" onclick="location.href='./cronograma.html'">Cronograma</button>
+    <button class="btn" onclick="location.href='./registro.html'">registro</button>
+     <button class="btn" onclick="location.href='./redes.html'">teste</button>
+      <button class="btn" onclick="location.href='./senha.html'">senha relatorio</button>
+    <button class="btn" onclick="mostrarFormulario()">Solicitar Suporte</button>
+  </div>
 
-  <p>Clique aqui para acessar as opções de manutenção.</p>
+  <div id="formulario" class="form-box" style="display:none;">
+    <h3>Solicitação de Suporte Técnico</h3>
+    <form id="suporteForm">
+      <label>Nome:</label>
+      <input type="text" id="nome" required>
 
-  <button onclick="event.stopPropagation(); limparCache()">
-    Limpar Cache
-  </button>
+      <label>E-mail:</label>
+      <input type="email" id="email" required>
 
-  <button onclick="event.stopPropagation(); reiniciarServico()">
-    Reiniciar Serviço
-  </button>
+      <label>Tipo de solicitação:</label>
+      <select id="tipo">
+        <option>Problema no servidor</option>
+        <option>Internet lenta</option>
+        <option>Falha de conexão</option>
+        <option>Outro</option>
+      </select>
 
-</div>
+      <label>Prioridade:</label>
+      <select id="prioridade">
+        <option>Baixa</option>
+        <option>Média</option>
+        <option>Alta</option>
+      </select>
+
+      <label>Descrição do problema:</label>
+      <textarea id="descricao" rows="4" required></textarea>
+
+      <button class="btn" type="button" onclick="enviarWhatsApp()">Enviar Solicitação</button>
+    </form>
+  </div>
+
+  <script>
+    function mostrarFormulario() {
+      document.getElementById("formulario").style.display = "block";
+    }
+
+    function enviarWhatsApp() {
+      var nome = document.getElementById("nome").value;
+      var email = document.getElementById("email").value;
+      var tipo = document.getElementById("tipo").value;
+      var prioridade = document.getElementById("prioridade").value;
+      var descricao = document.getElementById("descricao").value;
+
+      var mensagem = 
+        "📄 SOLICITAÇÃO DE SUPORTE TÉCNICO\n\n" +
+        "👤 Nome: " + nome + "\n" +
+        "📧 E-mail: " + email + "\n" +
+        "⚙️ Tipo de solicitação: " + tipo + "\n" +
+        "🔔 Prioridade: " + prioridade + "\n\n" +
+        "📝 Descrição do problema:\n" + descricao;
+
+      var url = "https://wa.me/5517997746829?text=" + encodeURIComponent(mensagem);
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>

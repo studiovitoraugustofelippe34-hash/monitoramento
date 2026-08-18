@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro de Etapas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      text-align: center;
+      margin: 50px;
+    }
+    h1 {
+      color: cyan;
+    }
+    .mensagem, .historico {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #222;
+      border: 2px solid cyan;
+      border-radius: 10px;
+      display: inline-block;
+      text-align: left;
+    }
+    .historico {
+      margin-top: 20px;
+      width: 60%;
+    }
+    .btn {
+      background: cyan;
+      color: black;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background: white;
+      color: black;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 5px 0;
+      padding: 5px;
+      border-bottom: 1px solid cyan;
+    }
+  </style>
+</head>
+<body>
+  <h1>Registro de Etapas</h1>
+
+  <!-- Última mensagem recebida -->
+  <div id="mensagem" class="mensagem"></div>
+
+  <!-- Histórico de todas as mensagens salvas -->
+  <div class="historico">
+    <h3>Histórico de Registros</h3>
+    <ul id="lista"></ul>
+  </div>
+
+  <!-- Botão para voltar ao cronograma -->
+  <button class="btn" onclick="voltar()">Voltar ao Cronograma</button>
+
+  <script>
+    // Função para pegar parâmetros da URL
+    function getParametro(nome) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(nome);
+    }
+
+    // Captura o parâmetro "msg"
+    const mensagem = getParametro("msg");
+
+    // Exibe a mensagem recebida
+    if (mensagem) {
+      document.getElementById("mensagem").textContent = mensagem;
+
+      // Salva no localStorage
+      let registros = JSON.parse(localStorage.getItem("registros")) || [];
+      registros.push(mensagem);
+      localStorage.setItem("registros", JSON.stringify(registros));
+    } else {
+      document.getElementById("mensagem").textContent = "Nenhuma mensagem registrada.";
+    }
+
+    // Exibe histórico salvo
+    function mostrarHistorico() {
+      let registros = JSON.parse(localStorage.getItem("registros")) || [];
+      const lista = document.getElementById("lista");
+      lista.innerHTML = "";
+      registros.forEach(reg => {
+        let li = document.createElement("li");
+        li.textContent = reg;
+        lista.appendChild(li);
+      });
+    }
+    mostrarHistorico();
+
+    // Função para voltar ao cronograma
+    function voltar() {
+      window.location.href = "./cronograma.html";
+    }
+  </script>
+</body>
+</html>
