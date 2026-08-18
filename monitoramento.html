@@ -1,85 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Painel de Rede</title>
-  <style>
-    body { font-family: Arial; background: #000; color: #fff; margin: 0; }
-    header { background: #ff0000; padding: 20px; text-align: center; }
-    h1 { margin: 0; color: #ffcc00; }
-    .card { background: #111; border: 2px solid #ffcc00; margin: 20px; padding: 15px; border-radius: 8px; }
-    .online { color: #00ff00; font-weight: bold; }
-    .offline { color: #ff0000; font-weight: bold; }
-    button { background: #ffcc00; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-right: 10px; }
-    button:hover { background: #ff0000; color: #fff; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Painel de Monitoramento</h1>
-    <p>Controle de acessos e manutenção</p>
-  </header>
+<div class="card manutencao-card" onclick="abrirManutencao()">
 
-  <div class="card">
-    <h2 style="color:#ffcc00;">Monitoramento da Rede</h2>
-    <p>Status atual: <span id="status">Verificando...</span></p>
-    <ul id="historico"></ul>
-    <button onclick="abrirControle()">Ir para Controle de Acesso</button>
-    <button onclick="abrirCronograma()">Ir para Cronograma</button>
-  </div>
+  <h2 style="color:#ffcc00;">Manutenção</h2>
 
-  <div class="card">
-    <h2 style="color:#ffcc00;">Manutenção</h2>
-    <button onclick="limparCache()">Limpar Cache</button>
-    <button onclick="reiniciarServico()">Reiniciar Serviço</button>
-  </div>
+  <p>Clique aqui para acessar as opções de manutenção.</p>
 
-  <script>
-    const statusEl = document.getElementById('status');
-    const historicoEl = document.getElementById('historico');
+  <button onclick="event.stopPropagation(); limparCache()">
+    Limpar Cache
+  </button>
 
-    function verificarConexao() {
-      return navigator.onLine;
-    }
+  <button onclick="event.stopPropagation(); reiniciarServico()">
+    Reiniciar Serviço
+  </button>
 
-    function atualizarStatus() {
-      const hora = new Date().toLocaleTimeString();
-      if (verificarConexao()) {
-        statusEl.textContent = "Online";
-        statusEl.className = "online";
-        historicoEl.innerHTML += `<li>${hora} - Rede Online ✅</li>`;
-      } else {
-        statusEl.textContent = "Offline";
-        statusEl.className = "offline";
-        historicoEl.innerHTML += `<li>${hora} - Rede Offline ❌</li>`;
-      }
-    }
-
-    // Atualiza automaticamente a cada 5 segundos
-    setInterval(atualizarStatus, 5000);
-
-    // Também atualiza quando o navegador detecta mudança
-    window.addEventListener('online', atualizarStatus);
-    window.addEventListener('offline', atualizarStatus);
-
-    // Primeira verificação imediata
-    atualizarStatus();
-
-    function limparCache() {
-      alert("Cache limpo com sucesso!");
-    }
-
-    function reiniciarServico() {
-      alert("Serviço reiniciado!");
-    }
-
-    function abrirControle() {
-      window.location.href = "./controle de acesso.html";
-    }
-
-    function abrirCronograma() {
-      window.location.href = "./cronograma.html";
-    }
-  </script>
-</body>
-</html>
+</div>

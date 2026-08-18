@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Painel de Monitoramento</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            margin: 0;
+        }
+
+        header {
+            background: #ff0000;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #ffcc00;
+        }
+
+        header p {
+            margin-bottom: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: #111;
+            border: 2px solid #ffcc00;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            color: #ffcc00;
+            margin-top: 0;
+        }
+
+        /* CARDS CLICÁVEIS */
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-card {
+            display: block;
+            background: #111;
+            border: 2px solid #ffcc00;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .menu-card:hover {
+            background: #ff0000;
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px #ffcc00;
+        }
+
+        .menu-card:hover h2 {
+            color: #fff;
+        }
+
+        .menu-card h2 {
+            color: #ffcc00;
+            margin: 15px 0 10px;
+        }
+
+        .menu-card p {
+            color: #ccc;
+            margin: 0;
+        }
+
+        .menu-icon {
+            font-size: 45px;
+        }
+
+        /* STATUS */
+
+        .status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .status-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .status-box h3 {
+            margin-top: 0;
+            color: #ffcc00;
+        }
+
+        .online {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .offline {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        /* RODAPÉ */
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #111;
+            color: #aaa;
+            margin-top: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+
+    <header>
+
+        <h1>PAINEL DE MONITORAMENTO</h1>
+
+        <p>
+            Controle de acessos, cronograma e relatórios
+        </p>
+
+    </header>
+
+
+    <div class="container">
+
+
+        <!-- MENU PRINCIPAL -->
+
+        <div class="card">
+
+            <h2>Menu do Sistema</h2>
+
+            <div class="menu">
+
+
+                <!-- CONTROLE DE ACESSO -->
+
+                <a href="./controle de acesso.html" class="menu-card">
+
+                    <div class="menu-icon">
+                        🔐
+                    </div>
+
+                    <h2>
+                        Controle de Acesso
+                    </h2>
+
+                    <p>
+                        Gerencie e controle os acessos ao sistema.
+                    </p>
+
+                </a>
+
+
+                <!-- CRONOGRAMA -->
+
+                <a href="./cronograma.html" class="menu-card">
+
+                    <div class="menu-icon">
+                        📅
+                    </div>
+
+                    <h2>
+                        Cronograma
+                    </h2>
+
+                    <p>
+                        Consulte o cronograma de atividades e manutenções.
+                    </p>
+
+                </a>
+
+
+                <!-- RELATÓRIO -->
+
+                <a href="./RELATORIO.HTML" class="menu-card">
+
+                    <div class="menu-icon">
+                        📊
+                    </div>
+
+                    <h2>
+                        Relatório
+                    </h2>
+
+                    <p>
+                        Acesse os relatórios de monitoramento do sistema.
+                    </p>
+
+                </a>
+
+
+                <!-- MONITORAMENTO -->
+
+                <a href="./monitoramento.html" class="menu-card">
+
+                    <div class="menu-icon">
+                        🖥️
+                    </div>
+
+                    <h2>
+                        Monitoramento
+                    </h2>
+
+                    <p>
+                        Acompanhe o monitoramento da rede e dos serviços.
+                    </p>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- STATUS DO SISTEMA -->
+
+        <div class="card">
+
+            <h2>Status do Monitoramento</h2>
+
+            <div class="status">
+
+
+                <div class="status-box">
+
+                    <h3>Sistema</h3>
+
+                    <p class="online">
+                        ● ONLINE
+                    </p>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <h3>Servidor</h3>
+
+                    <p class="online">
+                        ● OPERACIONAL
+                    </p>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <h3>Monitoramento</h3>
+
+                    <p class="online">
+                        ● ATIVO
+                    </p>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <h3>Última Verificação</h3>
+
+                    <p id="horaAtual">
+                        --/--/---- --:--:--
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- RODAPÉ -->
+
+    <footer>
+
+        Sistema de Monitoramento © 2026
+
+    </footer>
+
+
+    <script>
+
+        function atualizarHora() {
+
+            const agora = new Date();
+
+            const data =
+                agora.toLocaleDateString("pt-BR");
+
+            const hora =
+                agora.toLocaleTimeString("pt-BR");
+
+            document
+                .getElementById("horaAtual")
+                .textContent =
+                data + " " + hora;
+
+        }
+
+
+        atualizarHora();
+
+        setInterval(
+            atualizarHora,
+            1000
+        );
+
+    </script>
+
+</body>
+
+</html>
