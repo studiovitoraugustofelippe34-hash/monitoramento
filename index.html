@@ -4,44 +4,43 @@
   <meta charset="UTF-8">
   <title>Monitoramento de Redes</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      text-align: center; 
-      margin: 50px; 
-      background: url('./imagem.webp') no-repeat center center fixed; 
-      background-size: cover; 
-      color: white; 
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+      background: url('./imagem.webp') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
     }
-    .card { 
-      border: 2px solid yellow; 
-      padding: 20px; 
-      border-radius: 10px; 
-      display: inline-block; 
-      background-color: rgba(0,0,0,0.7); /* fundo semi-transparente para destacar o conteúdo */
+    .card {
+      border: 2px solid yellow;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      background-color: rgba(0,0,0,0.7);
     }
-    .btn { 
-      background: yellow; 
-      color: black; 
-      font-weight: bold; 
-      padding: 10px 20px; 
-      border: none; 
-      border-radius: 5px; 
-      cursor: pointer; 
+    .btn {
+      background: yellow;
+      color: black;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
-    .btn:hover { 
-      background: white; 
-      color: black; 
+    .btn:hover {
+      background: white;
+      color: black;
     }
-    h1, h2, h3 { 
-      color: rgb(255, 0, 0); 
+    h1, h2, h3 {
+      color: rgb(255, 0, 0);
     }
     h1 {
-  color: rgb(0, 255, 98);
-  font-size: 50px;   /* aumenta o tamanho da fonte */
-  font-weight: bold; /* deixa mais destacado */
-  text-transform: uppercase; /* opcional: deixa em maiúsculas */
-}
-
+      color: rgb(0, 255, 98);
+      font-size: 50px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
   </style>
 </head>
 <body>
@@ -51,7 +50,7 @@
     <p>✔ Teste grátis por 7 dias</p>
     <p>✔ Acesso completo após o teste</p>
     <p><strong>R$ 25,00 / mês</strong></p>
-    <button class="btn" onclick="redirecionar()">Assinar Agora</button>
+    <button class="btn" onclick="mostrarPix()">Assinar Agora</button>
   </div>
 
   <div id="pagamento" style="margin-top:20px; display:none;">
@@ -62,9 +61,13 @@
   </div>
 
   <script>
-    function redirecionar() {
-      alert("Você tem 7 dias grátis! Após isso, faça o pagamento via PIX.");
-      window.location.href = "./monitoramento.html";
+    function mostrarPix() {
+      // Mostra o PIX
+      document.getElementById("pagamento").style.display = "block";
+      // Depois de 3 segundos, redireciona
+      setTimeout(function() {
+        window.location.href = "./monitoramento.html";
+      }, 3000);
     }
   </script>
 </body>
