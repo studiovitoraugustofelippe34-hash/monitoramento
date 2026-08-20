@@ -1,74 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <title>Monitoramento de Redes</title>
+  <title>Pagamento - Página Inicial</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Arial;
+      background: #000;
+      color: #fff;
+      margin: 0;
       text-align: center;
-      margin: 50px;
-      background: url('./imagem.webp') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
     }
-    .card {
-      border: 2px solid yellow;
+
+    header {
+      background: #ff0000;
       padding: 20px;
-      border-radius: 10px;
-      display: inline-block;
-      background-color: rgba(0,0,0,0.7);
     }
-    .btn {
-      background: yellow;
-      color: black;
-      font-weight: bold;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background: white;
-      color: black;
-    }
-    h1, h2, h3 {
-      color: rgb(255, 0, 0);
-    }
+
     h1 {
-      color: rgb(0, 255, 98);
-      font-size: 50px;
-      font-weight: bold;
-      text-transform: uppercase;
+      margin: 0;
+      color: #ffcc00;
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    .card {
+      background: #111;
+      border: 2px solid #ffcc00;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px auto;
+      width: 300px;
+    }
+
+    button {
+      background: #ffcc00;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #ff0000;
+      color: #fff;
+    }
+
+    .pix {
+      font-size: 14px;
+      margin-top: 10px;
+      color: #00ff00;
+    }
+
+    .info {
+      margin-top: 10px;
+      color: #ffcc00;
+      font-size: 14px;
     }
   </style>
 </head>
-<body>
-  <h1>Monitoramento de Redes</h1>
-  <div class="card">
-    <h2>Plano Premium</h2>
-    <p>✔ Teste grátis por 7 dias</p>
-    <p>✔ Acesso completo após o teste</p>
-    <p><strong>R$ 25,00 / mês</strong></p>
-    <button class="btn" onclick="mostrarPix()">Assinar Agora</button>
-  </div>
 
-  <div id="pagamento" style="margin-top:20px; display:none;">
-    <h3>Pagamento via PIX</h3>
-    <p>Chave PIX: <strong>17997746829</strong></p>
-    <p>Valor: R$ 25,00</p>
-    <p>Após o pagamento, envie o comprovante para nosso suporte.</p>
+<body>
+  <header>
+    <h1>Bem-vindo ao Site</h1>
+    <p>Escolha sua forma de pagamento para continuar</p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2 style="color:#ffcc00;">Pagamento via Pix</h2>
+      <p class="pix">Chave Pix (Celular): <strong>17997746829</strong></p>
+      <p class="info">Nome: <strong>Vitor Augusto</strong></p>
+      <p class="info">Valor: <strong>R$ 25,00</strong></p>
+      <button onclick="confirmarPagamento('Pix')">Já paguei com Pix</button>
+    </div>
+
+    <div class="card">
+      <h2 style="color:#ffcc00;">Teste Grátis</h2>
+      <p class="info">Aproveite um acesso gratuito por 24 horas.</p>
+      <button onclick="confirmarPagamento('Teste Grátis')">Usar Teste Grátis</button>
+    </div>
   </div>
 
   <script>
-    function mostrarPix() {
-      // Mostra o PIX
-      document.getElementById("pagamento").style.display = "block";
-      // Depois de 3 segundos, redireciona
-      setTimeout(function() {
-        window.location.href = "./monitoramento.html";
-      }, 3000);
+    function confirmarPagamento(tipo) {
+      alert("Acesso liberado via " + tipo + "!");
+      window.location.href = "./monitoramento.html"; // redireciona para área restrita
     }
   </script>
 </body>
+
 </html>

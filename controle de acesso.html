@@ -2,868 +2,352 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Painel de Monitoramento</title>
+    <title>Painel de Monitoramento</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #050505;
-      color: white;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            margin: 0;
+        }
 
-    /* CABEÇALHO */
-    header {
-      background: linear-gradient(135deg, #ff0000, #8b0000);
-      padding: 25px;
-      text-align: center;
-      border-bottom: 3px solid #ffcc00;
-    }
+        header {
+            background: #ff0000;
+            padding: 25px;
+            text-align: center;
+        }
 
-    header h1 {
-      margin: 0;
-      color: #ffcc00;
-      font-size: 30px;
-    }
+        header h1 {
+            margin: 0;
+            color: #ffcc00;
+        }
 
-    header p {
-      margin: 8px 0 0;
-    }
+        header p {
+            margin-bottom: 0;
+        }
 
-    /* CONTAINER */
-    .container {
-      width: 95%;
-      max-width: 1400px;
-      margin: 25px auto;
-    }
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
 
-    /* CARDS */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-bottom: 20px;
-    }
+        .card {
+            background: #111;
+            border: 2px solid #ffcc00;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
 
-    .info-card {
-      background: #111;
-      border: 2px solid #ffcc00;
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(255, 204, 0, .15);
-    }
+        .card h2 {
+            color: #ffcc00;
+            margin-top: 0;
+        }
 
-    .info-card h3 {
-      margin: 0 0 10px;
-      color: #ffcc00;
-    }
+        /* CARDS CLICÁVEIS */
 
-    .numero {
-      font-size: 30px;
-      font-weight: bold;
-    }
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
 
-    /* PAINEL */
-    .painel {
-      background: #111;
-      border: 2px solid #ffcc00;
-      border-radius: 10px;
-      padding: 20px;
-    }
+        .menu-card {
+            display: block;
+            background: #111;
+            border: 2px solid #ffcc00;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: 0.3s;
+            cursor: pointer;
+        }
 
-    .painel h2 {
-      color: #ffcc00;
-      margin-top: 0;
-    }
+        .menu-card:hover {
+            background: #ff0000;
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px #ffcc00;
+        }
 
-    /* CONTROLES */
-    .controles {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
+        .menu-card:hover h2 {
+            color: #fff;
+        }
 
-    .controles input,
-    .controles select {
-      background: #222;
-      color: white;
-      border: 1px solid #555;
-      padding: 12px;
-      border-radius: 6px;
-    }
+        .menu-card h2 {
+            color: #ffcc00;
+            margin: 15px 0 10px;
+        }
 
-    button {
-      border: none;
-      border-radius: 6px;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+        .menu-card p {
+            color: #ccc;
+            margin: 0;
+        }
 
-    .btn-adicionar {
-      background: #00aa00;
-      color: white;
-    }
+        .menu-icon {
+            font-size: 45px;
+        }
 
-    .btn-adicionar:hover {
-      background: #00dd00;
-    }
+        /* STATUS */
 
-    .btn-excluir {
-      background: #cc0000;
-      color: white;
-    }
+        .status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
 
-    .btn-excluir:hover {
-      background: #ff0000;
-    }
+        .status-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
 
-    .btn-pendente {
-      background: #ff9900;
-      color: black;
-    }
+        .status-box h3 {
+            margin-top: 0;
+            color: #ffcc00;
+        }
 
-    .btn-concluido {
-      background: #0088ff;
-      color: white;
-    }
+        .online {
+            color: #00ff00;
+            font-weight: bold;
+        }
 
-    /* TABELA */
-    .tabela-container {
-      overflow-x: auto;
-    }
+        .offline {
+            color: #ff0000;
+            font-weight: bold;
+        }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 900px;
-    }
+        /* RODAPÉ */
 
-    th {
-      background: #ff0000;
-      color: #ffcc00;
-      padding: 14px;
-      text-align: left;
-    }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #111;
+            color: #aaa;
+            margin-top: 30px;
+        }
+    </style>
 
-    td {
-      padding: 13px;
-      border-bottom: 1px solid #333;
-    }
-
-    tr:hover {
-      background: #1b1b1b;
-    }
-
-    /* STATUS */
-    .status {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-weight: bold;
-    }
-
-    .online {
-      background: #063d06;
-      color: #00ff44;
-    }
-
-    .offline {
-      background: #3d0606;
-      color: #ff3333;
-    }
-
-    .pendente {
-      background: #493500;
-      color: #ffb300;
-    }
-
-    .concluido {
-      background: #003d55;
-      color: #00aaff;
-    }
-
-    /* BOTÕES */
-    .acoes {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-    }
-
-    /* MODAL */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .8);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .modal-content {
-      width: 90%;
-      max-width: 450px;
-      background: #111;
-      border: 2px solid #ffcc00;
-      border-radius: 10px;
-      padding: 25px;
-    }
-
-    .modal-content h2 {
-      color: #ffcc00;
-    }
-
-    .modal-content input,
-    .modal-content select {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      background: #222;
-      border: 1px solid #555;
-      color: white;
-      border-radius: 5px;
-    }
-
-    .modal-botoes {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .btn-cancelar {
-      background: #555;
-      color: white;
-    }
-
-    .btn-salvar {
-      background: #00aa00;
-      color: white;
-    }
-
-    /* RESPONSIVO */
-    @media(max-width:600px) {
-
-      header h1 {
-        font-size: 22px;
-      }
-
-      .container {
-        width: 92%;
-      }
-
-      .controles {
-        flex-direction: column;
-      }
-
-      .controles input,
-      .controles select,
-      .controles button {
-        width: 100%;
-      }
-    }
-  </style>
 </head>
 
 <body>
 
-  <header>
+    <!-- CABEÇALHO -->
 
-    <h1>Painel de Monitoramento</h1>
+    <header>
 
-    <p>Controle de usuários, acessos e situação da rede</p>
+        <h1>PAINEL DE MONITORAMENTO</h1>
 
-  </header>
+        <p>
+            Controle de acessos, cronograma e relatórios
+        </p>
 
+    </header>
 
-  <div class="container">
 
-    <!-- RESUMO -->
-    <div class="cards">
+    <div class="container">
 
-      <div class="info-card">
-        <h3>Usuários</h3>
-        <div class="numero" id="totalUsuarios">0</div>
-      </div>
 
-      <div class="info-card">
-        <h3>Online</h3>
-        <div class="numero" id="totalOnline">0</div>
-      </div>
+        <!-- MENU PRINCIPAL -->
 
-      <div class="info-card">
-        <h3>Offline</h3>
-        <div class="numero" id="totalOffline">0</div>
-      </div>
+        <div class="card">
 
-      <div class="info-card">
-        <h3>Pendentes</h3>
-        <div class="numero" id="totalPendentes">0</div>
-      </div>
+            <h2>Menu do Sistema</h2>
 
-    </div>
+            <div class="menu">
 
 
-    <!-- MONITORAMENTO -->
-    <div class="painel">
+                <!-- CONTROLE DE ACESSO -->
 
-      <h2>Monitoramento da Rede</h2>
+                <a href="./controle de acesso.html" class="menu-card">
 
-      <div class="controles">
+                    <div class="menu-icon">
+                        🔐
+                    </div>
 
-        <input type="text" id="pesquisa" placeholder="Pesquisar usuário..." oninput="mostrarUsuarios()">
+                    <h2>
+                        Controle de Acesso
+                    </h2>
 
-        <select id="filtro" onchange="mostrarUsuarios()">
+                    <p>
+                        Gerencie e controle os acessos ao sistema.
+                    </p>
 
-          <option value="todos">Todos</option>
+                </a>
 
-          <option value="online">Online</option>
 
-          <option value="offline">Offline</option>
+                <!-- CRONOGRAMA -->
 
-          <option value="pendente">Pendente</option>
+                <a href="./cronograma.html" class="menu-card">
 
-          <option value="concluido">Concluído</option>
+                    <div class="menu-icon">
+                        📅
+                    </div>
 
-        </select>
+                    <h2>
+                        Cronograma
+                    </h2>
 
-        <button class="btn-adicionar" onclick="abrirModal()">
-          + Adicionar Usuário
-        </button>
+                    <p>
+                        Consulte o cronograma de atividades e manutenções.
+                    </p>
 
-      </div>
+                </a>
 
 
-      <div class="tabela-container">
+                <!-- RELATÓRIO -->
 
-        <table>
+                <a href="./RELATORIO.HTML" class="menu-card">
 
-          <thead>
+                    <div class="menu-icon">
+                        📊
+                    </div>
 
-            <tr>
+                    <h2>
+                        Relatório
+                    </h2>
 
-              <th>Usuário</th>
+                    <p>
+                        Acesse os relatórios de monitoramento do sistema.
+                    </p>
 
-              <th>IP</th>
+                </a>
 
-              <th>Dispositivo</th>
 
-              <th>Status</th>
+                <!-- MONITORAMENTO -->
 
-              <th>Situação</th>
+                <a href="./monitoramento.html" class="menu-card">
 
-              <th>Último acesso</th>
+                    <div class="menu-icon">
+                        🖥️
+                    </div>
 
-              <th>Ações</th>
+                    <h2>
+                        Monitoramento
+                    </h2>
 
-            </tr>
+                    <p>
+                        Acompanhe o monitoramento da rede e dos serviços.
+                    </p>
 
-          </thead>
+                </a>
 
-          <tbody id="listaUsuarios"></tbody>
 
-        </table>
+            </div>
 
-      </div>
+        </div>
 
-    </div>
 
-  </div>
+        <!-- STATUS DO SISTEMA -->
 
+        <div class="card">
 
-  <!-- MODAL -->
+            <h2>Status do Monitoramento</h2>
 
-  <div class="modal" id="modal">
+            <div class="status">
 
-    <div class="modal-content">
 
-      <h2>Adicionar Usuário</h2>
+                <div class="status-box">
 
-      <input type="text" id="novoUsuario" placeholder="Nome do usuário">
+                    <h3>Sistema</h3>
 
-      <input type="text" id="novoIP" placeholder="IP">
-
-      <select id="novoDispositivo">
-
-        <option value="Computador">
-          Computador
-        </option>
-
-        <option value="Celular">
-          Celular
-        </option>
-
-        <option value="Tablet">
-          Tablet
-        </option>
-
-      </select>
-
-      <select id="novoStatus">
-
-        <option value="online">
-          Online
-        </option>
-
-        <option value="offline">
-          Offline
-        </option>
-
-      </select>
-
-      <div class="modal-botoes">
-
-        <button class="btn-salvar" onclick="adicionarUsuario()">
-          Salvar
-        </button>
-
-        <button class="btn-cancelar" onclick="fecharModal()">
-          Cancelar
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <script>
-
-    /* ==============================
-       DADOS INICIAIS
-    ============================== */
-
-    let usuarios = JSON.parse(
-      localStorage.getItem("usuariosMonitoramento")
-    ) || [
-
-        {
-          id: 1,
-          nome: "Cliente123",
-          ip: "192.168.0.10",
-          dispositivo: "Computador",
-          status: "online",
-          situacao: "concluido",
-          acesso: "Agora"
-        },
-
-        {
-          id: 2,
-          nome: "Joao",
-          ip: "192.168.0.11",
-          dispositivo: "Celular",
-          status: "online",
-          situacao: "pendente",
-          acesso: "19:35:20"
-        },
-
-        {
-          id: 3,
-          nome: "Maria",
-          ip: "192.168.0.12",
-          dispositivo: "Tablet",
-          status: "offline",
-          situacao: "pendente",
-          acesso: "19:20:05"
-        }
-
-      ];
-
-
-    /* ==============================
-       SALVAR
-    ============================== */
-
-    function salvarDados() {
-
-      localStorage.setItem(
-        "usuariosMonitoramento",
-        JSON.stringify(usuarios)
-      );
-
-    }
-
-
-    /* ==============================
-       MOSTRAR USUÁRIOS
-    ============================== */
-
-    function mostrarUsuarios() {
-
-      const lista = document.getElementById(
-        "listaUsuarios"
-      );
-
-      const pesquisa =
-        document.getElementById(
-          "pesquisa"
-        ).value.toLowerCase();
-
-      const filtro =
-        document.getElementById(
-          "filtro"
-        ).value;
-
-      lista.innerHTML = "";
-
-
-      const filtrados = usuarios.filter(usuario => {
-
-        const nomeCorresponde =
-          usuario.nome
-            .toLowerCase()
-            .includes(pesquisa);
-
-        const statusCorresponde =
-          filtro === "todos" ||
-          usuario.status === filtro ||
-          usuario.situacao === filtro;
-
-        return nomeCorresponde &&
-          statusCorresponde;
-
-      });
-
-
-      filtrados.forEach(usuario => {
-
-        const linha =
-          document.createElement("tr");
-
-
-        linha.innerHTML = `
-
-            <td>
-                <strong>
-                    ${usuario.nome}
-                </strong>
-            </td>
-
-            <td>
-                ${usuario.ip}
-            </td>
-
-            <td>
-                ${usuario.dispositivo}
-            </td>
-
-            <td>
-
-                <span class="status ${usuario.status}">
-
-                    ${usuario.status === "online"
-            ? "● Online"
-            : "● Offline"
-          }
-
-                </span>
-
-            </td>
-
-            <td>
-
-                <span class="status ${usuario.situacao}">
-
-                    ${usuario.situacao === "pendente"
-            ? "Pendente"
-            : "Concluído"
-          }
-
-                </span>
-
-            </td>
-
-            <td>
-                ${usuario.acesso}
-            </td>
-
-            <td>
-
-                <div class="acoes">
-
-                    <button
-                        class="btn-pendente"
-                        onclick="alterarSituacao(${usuario.id}, 'pendente')"
-                    >
-                        Pendente
-                    </button>
-
-                    <button
-                        class="btn-concluido"
-                        onclick="alterarSituacao(${usuario.id}, 'concluido')"
-                    >
-                        Concluído
-                    </button>
-
-                    <button
-                        class="btn-excluir"
-                        onclick="excluirUsuario(${usuario.id})"
-                    >
-                        Excluir
-                    </button>
+                    <p class="online">
+                        ● ONLINE
+                    </p>
 
                 </div>
 
-            </td>
 
-        `;
+                <div class="status-box">
 
+                    <h3>Servidor</h3>
 
-        lista.appendChild(linha);
+                    <p class="online">
+                        ● OPERACIONAL
+                    </p>
 
-      });
+                </div>
 
 
-      atualizarResumo();
+                <div class="status-box">
 
-    }
+                    <h3>Monitoramento</h3>
 
+                    <p class="online">
+                        ● ATIVO
+                    </p>
 
-    /* ==============================
-       RESUMO
-    ============================== */
+                </div>
 
-    function atualizarResumo() {
 
-      document.getElementById(
-        "totalUsuarios"
-      ).textContent = usuarios.length;
+                <div class="status-box">
 
+                    <h3>Última Verificação</h3>
 
-      document.getElementById(
-        "totalOnline"
-      ).textContent =
-        usuarios.filter(
-          u => u.status === "online"
-        ).length;
+                    <p id="horaAtual">
+                        --/--/---- --:--:--
+                    </p>
 
+                </div>
 
-      document.getElementById(
-        "totalOffline"
-      ).textContent =
-        usuarios.filter(
-          u => u.status === "offline"
-        ).length;
 
+            </div>
 
-      document.getElementById(
-        "totalPendentes"
-      ).textContent =
-        usuarios.filter(
-          u => u.situacao === "pendente"
-        ).length;
+        </div>
 
-    }
 
+    </div>
 
-    /* ==============================
-       ALTERAR SITUAÇÃO
-    ============================== */
 
-    function alterarSituacao(id, situacao) {
+    <!-- RODAPÉ -->
 
-      const usuario =
-        usuarios.find(
-          u => u.id === id
-        );
+    <footer>
 
-      if (!usuario) return;
+        Sistema de Monitoramento © 2026
 
-      usuario.situacao = situacao;
+    </footer>
 
-      salvarDados();
 
-      mostrarUsuarios();
+    <script>
 
-    }
+        function atualizarHora() {
 
+            const agora = new Date();
 
-    /* ==============================
-       EXCLUIR
-    ============================== */
+            const data =
+                agora.toLocaleDateString("pt-BR");
 
-    function excluirUsuario(id) {
+            const hora =
+                agora.toLocaleTimeString("pt-BR");
 
-      if (
-        !confirm(
-          "Deseja realmente excluir este usuário?"
-        )
-      ) {
-        return;
-      }
-
-
-      usuarios =
-        usuarios.filter(
-          u => u.id !== id
-        );
-
-
-      salvarDados();
-
-      mostrarUsuarios();
-
-    }
-
-
-    /* ==============================
-       MODAL
-    ============================== */
-
-    function abrirModal() {
-
-      document.getElementById(
-        "modal"
-      ).style.display = "flex";
-
-    }
-
-
-    function fecharModal() {
-
-      document.getElementById(
-        "modal"
-      ).style.display = "none";
-
-    }
-
-
-    /* ==============================
-       ADICIONAR USUÁRIO
-    ============================== */
-
-    function adicionarUsuario() {
-
-      const nome =
-        document.getElementById(
-          "novoUsuario"
-        ).value.trim();
-
-      const ip =
-        document.getElementById(
-          "novoIP"
-        ).value.trim();
-
-      const dispositivo =
-        document.getElementById(
-          "novoDispositivo"
-        ).value;
-
-      const status =
-        document.getElementById(
-          "novoStatus"
-        ).value;
-
-
-      if (!nome) {
-
-        alert(
-          "Digite o nome do usuário."
-        );
-
-        return;
-
-      }
-
-
-      const agora =
-        new Date().toLocaleTimeString();
-
-
-      const novoUsuario = {
-
-        id: Date.now(),
-
-        nome: nome,
-
-        ip: ip || "Não informado",
-
-        dispositivo: dispositivo,
-
-        status: status,
-
-        situacao: "pendente",
-
-        acesso: agora
-
-      };
-
-
-      usuarios.push(
-        novoUsuario
-      );
-
-
-      salvarDados();
-
-      mostrarUsuarios();
-
-      fecharModal();
-
-
-      document.getElementById(
-        "novoUsuario"
-      ).value = "";
-
-      document.getElementById(
-        "novoIP"
-      ).value = "";
-
-    }
-
-
-    /* ==============================
-       INICIALIZAÇÃO
-    ============================== */
-
-    mostrarUsuarios();
-
-
-    /* ==============================
-       SIMULAÇÃO DE MONITORAMENTO
-    ============================== */
-
-    /*
-       A cada 10 segundos alguns usuários
-       podem mudar de status.
-    */
-
-    setInterval(() => {
-
-      usuarios.forEach(usuario => {
-
-        if (Math.random() > 0.7) {
-
-          usuario.status =
-            usuario.status === "online"
-              ? "offline"
-              : "online";
-
-          usuario.acesso =
-            new Date().toLocaleTimeString();
+            document
+                .getElementById("horaAtual")
+                .textContent =
+                data + " " + hora;
 
         }
 
-      });
 
+        atualizarHora();
 
-      salvarDados();
+        setInterval(
+            atualizarHora,
+            1000
+        );
 
-      mostrarUsuarios();
-
-    }, 10000);
-
-  </script>
+    </script>
 
 </body>
 

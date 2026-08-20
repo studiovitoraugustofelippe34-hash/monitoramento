@@ -1,165 +1,1556 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Gerenciamento de Usuários</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
-      background-color: black;
-      color: white;
-    }
-    h1 {
-      color: cyan;
-    }
-    .form-box {
-      border: 2px solid cyan;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: #222;
-      text-align: left;
-      display: inline-block;
-      margin-top: 20px;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-      color: cyan;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: none;
-    }
-    .btn {
-      background: cyan;
-      color: black;
-      font-weight: bold;
-      padding: 8px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .btn:hover {
-      background: white;
-      color: black;
-    }
-    table {
-      width: 95%;
-      margin: auto;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid cyan;
-      padding: 10px;
-      text-align: center;
-    }
-    th {
-      background-color: #111;
-      color: cyan;
-    }
-    tr:nth-child(even) {
-      background-color: #222;
-    }
-  </style>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro de Usuários</title>
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #000;
+
+            color: #fff;
+
+        }
+
+
+        /* ==============================
+           CABEÇALHO
+        ============================== */
+
+        header {
+
+            background: #ff0000;
+
+            padding: 25px;
+
+            text-align: center;
+
+            border-bottom: 3px solid #ffcc00;
+
+        }
+
+
+        header h1 {
+
+            margin: 0;
+
+            color: #ffcc00;
+
+        }
+
+
+        header p {
+
+            margin-bottom: 0;
+
+        }
+
+
+        /* ==============================
+           CONTAINER
+        ============================== */
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1100px;
+
+            margin: 30px auto;
+
+        }
+
+
+        /* ==============================
+           CARDS
+        ============================== */
+
+        .card {
+
+            background: #111;
+
+            border: 2px solid #ffcc00;
+
+            border-radius: 10px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .card h2 {
+
+            margin-top: 0;
+
+            color: #ffcc00;
+
+        }
+
+
+        /* ==============================
+           BOTÕES
+        ============================== */
+
+        button {
+
+            border: none;
+
+            border-radius: 7px;
+
+            padding: 13px 18px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .2s;
+
+        }
+
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+            filter: brightness(1.15);
+
+        }
+
+
+        .verde {
+
+            background: #00b83d;
+
+            color: white;
+
+        }
+
+
+        .vermelho {
+
+            background: #cc0000;
+
+            color: white;
+
+        }
+
+
+        .azul {
+
+            background: #0066cc;
+
+            color: white;
+
+        }
+
+
+        .amarelo {
+
+            background: #ffcc00;
+
+            color: #000;
+
+        }
+
+
+        /* ==============================
+           FORMULÁRIO
+        ============================== */
+
+        .formulario {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 15px;
+
+        }
+
+
+        .campo {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        .campo label {
+
+            margin-bottom: 7px;
+
+            color: #ffcc00;
+
+            font-weight: bold;
+
+        }
+
+
+        .campo input {
+
+            padding: 13px;
+
+            border-radius: 6px;
+
+            border: 1px solid #555;
+
+            background: #1a1a1a;
+
+            color: #fff;
+
+            font-size: 15px;
+
+        }
+
+
+        .campo input:focus {
+
+            outline: none;
+
+            border-color: #ffcc00;
+
+        }
+
+
+        .form-botoes {
+
+            grid-column: 1 / -1;
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        /* ==============================
+           PESQUISA
+        ============================== */
+
+        .pesquisa {
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin-bottom: 20px;
+
+            background: #1a1a1a;
+
+            color: #fff;
+
+            border: 1px solid #555;
+
+            border-radius: 7px;
+
+            font-size: 16px;
+
+        }
+
+
+        .pesquisa:focus {
+
+            outline: none;
+
+            border-color: #ffcc00;
+
+        }
+
+
+        /* ==============================
+           LISTA DE USUÁRIOS
+        ============================== */
+
+        .lista {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 15px;
+
+        }
+
+
+        .usuario {
+
+            background: #1a1a1a;
+
+            border: 1px solid #444;
+
+            border-radius: 9px;
+
+            padding: 20px;
+
+            transition: .2s;
+
+        }
+
+
+        .usuario:hover {
+
+            border-color: #ffcc00;
+
+            box-shadow:
+                0 0 10px rgba(255, 204, 0, .3);
+
+        }
+
+
+        .usuario h3 {
+
+            color: #ffcc00;
+
+            margin-top: 0;
+
+        }
+
+
+        .usuario p {
+
+            margin: 8px 0;
+
+            color: #ddd;
+
+        }
+
+
+        .usuario-id {
+
+            color: #ffcc00 !important;
+
+            font-weight: bold;
+
+        }
+
+
+        .acoes {
+
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            margin-top: 15px;
+
+        }
+
+
+        /* ==============================
+           CONTADOR
+        ============================== */
+
+        .contador {
+
+            background: #1a1a1a;
+
+            border: 1px solid #333;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            color: #00ff00;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ==============================
+           MODAL
+        ============================== */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0, 0, 0, .85);
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 9999;
+
+        }
+
+
+        .modal-conteudo {
+
+            width: 100%;
+
+            max-width: 500px;
+
+            background: #111;
+
+            border: 2px solid #ffcc00;
+
+            border-radius: 10px;
+
+            padding: 25px;
+
+        }
+
+
+        .modal-conteudo h2 {
+
+            color: #ffcc00;
+
+            margin-top: 0;
+
+        }
+
+
+        /* ==============================
+           RODAPÉ
+        ============================== */
+
+        footer {
+
+            background: #111;
+
+            color: #aaa;
+
+            text-align: center;
+
+            padding: 20px;
+
+            margin-top: 30px;
+
+        }
+
+
+        /* ==============================
+           CELULAR
+        ============================== */
+
+        @media(max-width:600px) {
+
+            .container {
+
+                width: 94%;
+
+            }
+
+
+            .form-botoes {
+
+                flex-direction: column;
+
+            }
+
+
+            .form-botoes button {
+
+                width: 100%;
+
+            }
+
+
+            .acoes {
+
+                flex-direction: column;
+
+            }
+
+
+            .acoes button {
+
+                width: 100%;
+
+            }
+
+        }
+    </style>
+
 </head>
+
+
 <body>
-  <h1>Gerenciamento de Usuários - Rede</h1>
 
-  <!-- Formulário para adicionar usuários -->
-  <div class="form-box">
-    <h3>Adicionar Usuário</h3>
-    <form id="usuarioForm">
-      <label>Nome:</label>
-      <input type="text" id="nome" required>
 
-      <label>IP:</label>
-      <input type="text" id="ip" placeholder="Ex: 192.168.0.10" required>
+    <!-- ==========================================================
+     CABEÇALHO
+========================================================== -->
 
-      <label>Status:</label>
-      <select id="status">
-        <option>Online</option>
-        <option>Offline</option>
-        <option>Pendente</option>
-        <option>Concluído</option>
-      </select>
+    <header>
 
-      <label>Descrição do Problema:</label>
-      <textarea id="problema" rows="3" required></textarea>
+        <h1>
+            PAINEL DE USUÁRIOS
+        </h1>
 
-      <button class="btn" type="button" onclick="adicionarUsuario()">Adicionar</button>
-    </form>
-  </div>
+        <p>
+            Cadastro e gerenciamento de usuários
+        </p>
 
-  <!-- Tabela de usuários -->
-  <table id="tabelaUsuarios">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>IP</th>
-        <th>Status</th>
-        <th>Problema</th>
-        <th>Ação</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Os usuários adicionados aparecerão aqui -->
-    </tbody>
-  </table>
+    </header>
 
-  <script>
-    function adicionarUsuario() {
-      var nome = document.getElementById("nome").value;
-      var ip = document.getElementById("ip").value;
-      var status = document.getElementById("status").value;
-      var problema = document.getElementById("problema").value;
 
-      if(nome === "" || ip === "" || problema === "") {
-        alert("Preencha todos os campos!");
-        return;
-      }
 
-      var usuario = { nome, ip, status, problema };
+    <main class="container">
 
-      // Pega lista existente ou cria nova
-      var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-      usuarios.push(usuario);
-      localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-      atualizarTabela();
-      document.getElementById("usuarioForm").reset();
-    }
+        <!-- ======================================================
+         FORMULÁRIO
+    ======================================================= -->
 
-    function atualizarTabela() {
-      var tabela = document.getElementById("tabelaUsuarios").getElementsByTagName("tbody")[0];
-      tabela.innerHTML = "";
-      var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+        <section class="card">
 
-      usuarios.forEach((u, index) => {
-        var novaLinha = tabela.insertRow();
-        novaLinha.insertCell(0).innerHTML = u.nome;
-        novaLinha.insertCell(1).innerHTML = u.ip;
-        novaLinha.insertCell(2).innerHTML = u.status;
-        novaLinha.insertCell(3).innerHTML = u.problema;
-        novaLinha.insertCell(4).innerHTML = `<button class="btn" onclick="excluirUsuario(${index})">Excluir</button>`;
-      });
-    }
+            <h2>
+                👤 Novo Cadastro
+            </h2>
 
-    function excluirUsuario(index) {
-      var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-      usuarios.splice(index, 1);
-      localStorage.setItem("usuarios", JSON.stringify(usuarios));
-      atualizarTabela();
-    }
 
-    // Carrega tabela ao abrir a página
-    window.onload = atualizarTabela;
-  </script>
+            <form id="formCadastro" class="formulario">
+
+
+                <div class="campo">
+
+                    <label>
+                        Nome completo
+                    </label>
+
+                    <input type="text" id="nome" placeholder="Digite o nome" required>
+
+                </div>
+
+
+
+                <div class="campo">
+
+                    <label>
+                        E-mail
+                    </label>
+
+                    <input type="email" id="email" placeholder="Digite o e-mail" required>
+
+                </div>
+
+
+
+                <div class="campo">
+
+                    <label>
+                        Telefone
+                    </label>
+
+                    <input type="tel" id="telefone" placeholder="Digite o telefone" required>
+
+                </div>
+
+
+
+                <div class="campo">
+
+                    <label>
+                        IP
+                    </label>
+
+                    <input type="text" id="ip" placeholder="Ex: 192.168.0.10">
+
+                </div>
+
+
+
+                <div class="campo">
+
+                    <label>
+                        Senha
+                    </label>
+
+                    <input type="password" id="senha" placeholder="Digite uma senha" required>
+
+                </div>
+
+
+
+                <div class="form-botoes">
+
+                    <button type="submit" class="verde">
+                        ➕ CADASTRAR USUÁRIO
+                    </button>
+
+
+                    <button type="button" class="vermelho" onclick="cancelarEdicao()" id="btnCancelar"
+                        style="display:none;">
+                        ❌ CANCELAR EDIÇÃO
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+
+        <!-- ======================================================
+         LISTA
+    ======================================================= -->
+
+        <section class="card">
+
+            <h2>
+                👥 Usuários Cadastrados
+            </h2>
+
+
+            <div class="contador" id="contador">
+                0 usuários cadastrados
+            </div>
+
+
+            <input type="text" class="pesquisa" id="pesquisa" placeholder="🔎 Pesquisar usuário pelo nome...">
+
+
+            <div id="listaUsuarios" class="lista"></div>
+
+
+        </section>
+
+
+
+        <!-- ======================================================
+         OPÇÕES
+    ======================================================= -->
+
+        <section class="card">
+
+            <h2>
+                ⚙️ Opções
+            </h2>
+
+
+            <div class="acoes">
+
+                <button class="azul" onclick="atualizarLista()">
+                    🔄 ATUALIZAR LISTA
+                </button>
+
+
+                <button class="vermelho" onclick="excluirTodos()">
+                    🗑️ EXCLUIR TODOS
+                </button>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <footer>
+
+        Sistema de Cadastro © 2026
+
+    </footer>
+
+
+
+    <!-- ==========================================================
+     MODAL
+========================================================== -->
+
+    <div class="modal" id="modal" onclick="fecharModal()">
+
+        <div class="modal-conteudo" onclick="event.stopPropagation()">
+
+            <h2 id="modalTitulo">
+                Suporte
+            </h2>
+
+            <p id="modalTexto"></p>
+
+
+            <button class="vermelho" onclick="fecharModal()">
+                FECHAR
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        /* ==========================================================
+           CONFIGURAÇÕES
+        ========================================================== */
+
+        const CHAVE_USUARIOS =
+            "listaUsuarios";
+
+
+        const WHATSAPP =
+            "5517997746829";
+
+
+        let usuarioEditando =
+            null;
+
+
+
+        /* ==========================================================
+           PEGAR TODOS OS USUÁRIOS
+        ========================================================== */
+
+        function obterUsuarios() {
+
+            const dados =
+                localStorage.getItem(
+                    CHAVE_USUARIOS
+                );
+
+
+            if (!dados) {
+
+                return [];
+
+            }
+
+
+            try {
+
+                return JSON.parse(dados);
+
+            }
+
+            catch {
+
+                return [];
+
+            }
+
+        }
+
+
+
+        /* ==========================================================
+           SALVAR TODOS OS USUÁRIOS
+        ========================================================== */
+
+        function salvarUsuarios(
+            usuarios
+        ) {
+
+            localStorage.setItem(
+
+                CHAVE_USUARIOS,
+
+                JSON.stringify(
+                    usuarios
+                )
+
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           GERAR ID
+        ========================================================== */
+
+        function gerarID() {
+
+            return (
+
+                "USR-" +
+
+                Date.now()
+                    .toString(36)
+                    .toUpperCase()
+
+                +
+
+                "-" +
+
+                Math.random()
+                    .toString(36)
+                    .substring(2, 6)
+                    .toUpperCase()
+
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           CADASTRAR
+        ========================================================== */
+
+        document
+            .getElementById("formCadastro")
+            .addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const nome =
+                        document
+                            .getElementById("nome")
+                            .value
+                            .trim();
+
+
+                    const email =
+                        document
+                            .getElementById("email")
+                            .value
+                            .trim();
+
+
+                    const telefone =
+                        document
+                            .getElementById("telefone")
+                            .value
+                            .trim();
+
+
+                    const ip =
+                        document
+                            .getElementById("ip")
+                            .value
+                            .trim();
+
+
+                    const senha =
+                        document
+                            .getElementById("senha")
+                            .value;
+
+
+                    if (!nome || !email || !telefone || !senha) {
+
+                        alert(
+                            "Preencha os campos obrigatórios."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const usuarios =
+                        obterUsuarios();
+
+
+
+                    /* ==========================================
+                       EDITAR
+                    ========================================== */
+
+                    if (usuarioEditando) {
+
+                        const indice =
+                            usuarios.findIndex(
+
+                                usuario =>
+                                    usuario.id ===
+                                    usuarioEditando
+
+                            );
+
+
+                        if (indice !== -1) {
+
+                            usuarios[indice].nome =
+                                nome;
+
+                            usuarios[indice].email =
+                                email;
+
+                            usuarios[indice].telefone =
+                                telefone;
+
+                            usuarios[indice].ip =
+                                ip;
+
+                            usuarios[indice].senha =
+                                senha;
+
+                        }
+
+
+                        usuarioEditando =
+                            null;
+
+
+                        document
+                            .getElementById("btnCancelar")
+                            .style.display =
+                            "none";
+
+
+                        document
+                            .querySelector(
+                                "#formCadastro .verde"
+                            )
+                            .textContent =
+                            "➕ CADASTRAR USUÁRIO";
+
+                    }
+
+
+                    /* ==========================================
+                       NOVO CADASTRO
+                    ========================================== */
+
+                    else {
+
+                        const novoUsuario = {
+
+                            id:
+                                gerarID(),
+
+                            nome:
+                                nome,
+
+                            email:
+                                email,
+
+                            telefone:
+                                telefone,
+
+                            ip:
+                                ip || "Não informado",
+
+                            senha:
+                                senha,
+
+                            dataCadastro:
+                                new Date()
+                                    .toLocaleString(
+                                        "pt-BR"
+                                    )
+
+                        };
+
+
+                        usuarios.push(
+                            novoUsuario
+                        );
+
+                    }
+
+
+
+                    /* ==========================================
+                       SALVAR
+                    ========================================== */
+
+                    salvarUsuarios(
+                        usuarios
+                    );
+
+
+                    document
+                        .getElementById("formCadastro")
+                        .reset();
+
+
+                    atualizarLista();
+
+
+                    alert(
+                        "Cadastro salvo com sucesso!"
+                    );
+
+                }
+            );
+
+
+
+        /* ==========================================================
+           MOSTRAR USUÁRIOS
+        ========================================================== */
+
+        function atualizarLista() {
+
+            const lista =
+                document
+                    .getElementById(
+                        "listaUsuarios"
+                    );
+
+
+            const pesquisa =
+                document
+                    .getElementById(
+                        "pesquisa"
+                    )
+                    .value
+                    .toLowerCase();
+
+
+            const usuarios =
+                obterUsuarios();
+
+
+            lista.innerHTML =
+                "";
+
+
+            const filtrados =
+                usuarios.filter(
+
+                    usuario =>
+                        usuario.nome
+                            .toLowerCase()
+                            .includes(
+                                pesquisa
+                            )
+
+                );
+
+
+            document
+                .getElementById(
+                    "contador"
+                )
+                .textContent =
+
+                usuarios.length +
+
+                (
+                    usuarios.length === 1
+                        ? " usuário cadastrado"
+                        : " usuários cadastrados"
+                );
+
+
+            if (filtrados.length === 0) {
+
+                lista.innerHTML = `
+
+                <div class="usuario">
+
+                    <h3>
+                        Nenhum usuário encontrado
+                    </h3>
+
+                    <p>
+                        Faça um novo cadastro acima.
+                    </p>
+
+                </div>
+
+            `;
+
+                return;
+
+            }
+
+
+
+            filtrados.forEach(
+                usuario => {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "usuario";
+
+
+                    div.innerHTML = `
+
+                    <h3>
+                        👤 ${escaparHTML(usuario.nome)}
+                    </h3>
+
+                    <p class="usuario-id">
+                        ID: ${escaparHTML(usuario.id)}
+                    </p>
+
+                    <p>
+                        📧 ${escaparHTML(usuario.email)}
+                    </p>
+
+                    <p>
+                        📱 ${escaparHTML(usuario.telefone)}
+                    </p>
+
+                    <p>
+                        🌐 IP:
+                        ${escaparHTML(usuario.ip)}
+                    </p>
+
+                    <p>
+                        📅 Cadastro:
+                        ${escaparHTML(usuario.dataCadastro)}
+                    </p>
+
+
+                    <div class="acoes">
+
+                        <button
+                            class="azul"
+                            onclick="editarUsuario('${usuario.id}')"
+                        >
+                            ✏️ EDITAR
+                        </button>
+
+
+                        <button
+                            class="vermelho"
+                            onclick="excluirUsuario('${usuario.id}')"
+                        >
+                            🗑️ EXCLUIR
+                        </button>
+
+
+                        <button
+                            class="verde"
+                            onclick="suporteUsuario('${usuario.id}')"
+                        >
+                            📱 SUPORTE
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                    lista.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           PESQUISA
+        ========================================================== */
+
+        document
+            .getElementById("pesquisa")
+            .addEventListener(
+                "input",
+                atualizarLista
+            );
+
+
+
+        /* ==========================================================
+           EDITAR USUÁRIO
+        ========================================================== */
+
+        function editarUsuario(
+            id
+        ) {
+
+            const usuarios =
+                obterUsuarios();
+
+
+            const usuario =
+                usuarios.find(
+
+                    item =>
+                        item.id === id
+
+                );
+
+
+            if (!usuario) {
+
+                return;
+
+            }
+
+
+            document
+                .getElementById("nome")
+                .value =
+                usuario.nome;
+
+
+            document
+                .getElementById("email")
+                .value =
+                usuario.email;
+
+
+            document
+                .getElementById("telefone")
+                .value =
+                usuario.telefone;
+
+
+            document
+                .getElementById("ip")
+                .value =
+                usuario.ip;
+
+
+            document
+                .getElementById("senha")
+                .value =
+                usuario.senha;
+
+
+            usuarioEditando =
+                id;
+
+
+            document
+                .getElementById("btnCancelar")
+                .style.display =
+                "inline-block";
+
+
+            document
+                .querySelector(
+                    "#formCadastro .verde"
+                )
+                .textContent =
+                "💾 SALVAR ALTERAÇÕES";
+
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        }
+
+
+
+        /* ==========================================================
+           CANCELAR EDIÇÃO
+        ========================================================== */
+
+        function cancelarEdicao() {
+
+            usuarioEditando =
+                null;
+
+
+            document
+                .getElementById("formCadastro")
+                .reset();
+
+
+            document
+                .getElementById("btnCancelar")
+                .style.display =
+                "none";
+
+
+            document
+                .querySelector(
+                    "#formCadastro .verde"
+                )
+                .textContent =
+                "➕ CADASTRAR USUÁRIO";
+
+        }
+
+
+
+        /* ==========================================================
+           EXCLUIR UM USUÁRIO
+        ========================================================== */
+
+        function excluirUsuario(
+            id
+        ) {
+
+            const usuarios =
+                obterUsuarios();
+
+
+            const usuario =
+                usuarios.find(
+
+                    item =>
+                        item.id === id
+
+                );
+
+
+            if (!usuario) {
+
+                return;
+
+            }
+
+
+            const confirmar =
+                confirm(
+
+                    "Deseja excluir o cadastro de " +
+
+                    usuario.nome +
+
+                    "?"
+
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            const novosUsuarios =
+                usuarios.filter(
+
+                    item =>
+                        item.id !== id
+
+                );
+
+
+            salvarUsuarios(
+                novosUsuarios
+            );
+
+
+            atualizarLista();
+
+
+            alert(
+                "Cadastro excluído."
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           EXCLUIR TODOS
+        ========================================================== */
+
+        function excluirTodos() {
+
+            const usuarios =
+                obterUsuarios();
+
+
+            if (usuarios.length === 0) {
+
+                alert(
+                    "Não existem cadastros."
+                );
+
+                return;
+
+            }
+
+
+            const confirmar =
+                confirm(
+
+                    "ATENÇÃO!\n\n" +
+
+                    "Isso irá excluir TODOS os cadastros.\n\n" +
+
+                    "Deseja continuar?"
+
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            localStorage.removeItem(
+                CHAVE_USUARIOS
+            );
+
+
+            atualizarLista();
+
+
+            alert(
+                "Todos os cadastros foram excluídos."
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           SUPORTE WHATSAPP
+        ========================================================== */
+
+        function suporteUsuario(
+            id
+        ) {
+
+            const usuarios =
+                obterUsuarios();
+
+
+            const usuario =
+                usuarios.find(
+
+                    item =>
+                        item.id === id
+
+                );
+
+
+            if (!usuario) {
+
+                return;
+
+            }
+
+
+            const mensagem =
+
+                "Olá, preciso de suporte técnico." +
+
+                "\n\n" +
+
+                "Nome: " +
+                usuario.nome +
+
+                "\nID: " +
+                usuario.id +
+
+                "\nE-mail: " +
+                usuario.email +
+
+                "\nTelefone: " +
+                usuario.telefone +
+
+                "\nIP: " +
+                usuario.ip;
+
+
+            const url =
+
+                "https://wa.me/" +
+
+                WHATSAPP +
+
+                "?text=" +
+
+                encodeURIComponent(
+                    mensagem
+                );
+
+
+            window.open(
+                url,
+                "_blank"
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           ESCAPAR HTML
+        ========================================================== */
+
+        function escaparHTML(
+            texto
+        ) {
+
+            return String(texto)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+
+        /* ==========================================================
+           INICIAR
+        ========================================================== */
+
+        atualizarLista();
+
+    </script>
+
+
 </body>
+
 </html>

@@ -1,135 +1,1451 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
   <meta charset="UTF-8">
-  <title>Monitoramento de Redes Wi-Fi</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Painel de Monitoramento Wi-Fi</title>
+
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      text-align: center; 
-      margin: 50px; 
-      background-color: black; 
-      color: white; 
+    * {
+      box-sizing: border-box;
     }
-    .card { 
-      border: 2px solid cyan; 
-      padding: 20px; 
-      border-radius: 10px; 
-      display: inline-block; 
-      background-color: #111; 
-      margin: 20px;
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
     }
-    .btn { 
-      background: cyan; 
-      color: black; 
-      font-weight: bold; 
-      padding: 10px 20px; 
-      border: none; 
-      border-radius: 5px; 
-      cursor: pointer; 
-      margin: 10px;
+
+    header {
+      background: linear-gradient(135deg, #ff0000, #8b0000);
+      padding: 25px;
+      text-align: center;
+      border-bottom: 3px solid #ffcc00;
     }
-    .btn:hover { 
-      background: white; 
-      color: black; 
+
+    header h1 {
+      margin: 0;
+      color: #ffcc00;
+      font-size: 30px;
     }
-    h1, h2, h3 { 
-      color: cyan; 
+
+    header p {
+      margin-bottom: 0;
     }
-    .form-box {
-      border: 2px solid cyan;
-      padding: 20px;
+
+    .container {
+      width: 92%;
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+
+    /* STATUS PRINCIPAL */
+
+    .status-principal {
+      background: #111;
+      border: 2px solid #ffcc00;
       border-radius: 10px;
-      background-color: #222;
+      padding: 25px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .status-principal h2 {
+      color: #ffcc00;
+      margin-top: 0;
+    }
+
+    .wifi-status {
+      font-size: 25px;
+      color: #00ff44;
+      font-weight: bold;
+    }
+
+    .wifi-status.offline {
+      color: #ff3333;
+    }
+
+    /* CARDS */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,
+          minmax(200px, 1fr));
+
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: #111;
+      border: 2px solid #ffcc00;
+      border-radius: 10px;
+      padding: 22px;
+      text-align: center;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .card:hover {
+      background: #ff0000;
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px #ffcc00;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #ffcc00;
+    }
+
+    .numero {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .verde {
+      color: #00ff44;
+    }
+
+    .vermelho {
+      color: #ff3333;
+    }
+
+    .amarelo {
+      color: #ffcc00;
+    }
+
+    .azul {
+      color: #00aaff;
+    }
+
+    /* MENU */
+
+    .menu {
+      background: #111;
+      border: 2px solid #ffcc00;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .menu h2 {
+      color: #ffcc00;
+      margin-top: 0;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,
+          minmax(220px, 1fr));
+
+      gap: 20px;
+    }
+
+    .menu-card {
+      display: block;
+      background: #161616;
+      border: 2px solid #ffcc00;
+      border-radius: 10px;
+      padding: 25px;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      transition: .3s;
+      cursor: pointer;
+    }
+
+    .menu-card:hover {
+      background: #ff0000;
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px #ffcc00;
+    }
+
+    .menu-icon {
+      font-size: 45px;
+    }
+
+    .menu-card h3 {
+      color: #ffcc00;
+      margin: 12px 0;
+    }
+
+    .menu-card p {
+      color: #ccc;
+      margin: 0;
+    }
+
+    /* REDE */
+
+    .rede {
+      background: #111;
+      border: 2px solid #ffcc00;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .rede h2 {
+      color: #ffcc00;
+      margin-top: 0;
+    }
+
+    .informacoes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,
+          minmax(200px, 1fr));
+
+      gap: 15px;
+    }
+
+    .info {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      padding: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .info:hover {
+      background: #ff0000;
+      border-color: #ffcc00;
+      transform: translateY(-3px);
+    }
+
+    .info span {
+      color: #ffcc00;
+      font-weight: bold;
+    }
+
+    /* DISPOSITIVOS */
+
+    .dispositivos {
+      background: #111;
+      border: 2px solid #ffcc00;
+      border-radius: 10px;
+      padding: 25px;
+      overflow-x: auto;
+    }
+
+    .dispositivos h2 {
+      color: #ffcc00;
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: #ff0000;
+      color: #ffcc00;
+      padding: 13px;
       text-align: left;
+    }
+
+    td {
+      padding: 13px;
+      border-bottom: 1px solid #333;
+    }
+
+    tr {
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    tr:hover {
+      background: #1b1b1b;
+    }
+
+    .status {
       display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    .online {
+      background: #063d06;
+      color: #00ff44;
+    }
+
+    .offline {
+      background: #3d0606;
+      color: #ff3333;
+    }
+
+    .atualizacao {
+      text-align: center;
+      color: #aaa;
       margin-top: 20px;
     }
-    label {
-      display: block;
-      margin-top: 10px;
-      color: cyan;
+
+    #contador {
+      color: #ffcc00;
+      font-weight: bold;
     }
-    input, select, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 5px;
+
+    /* RODAPÉ */
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: #aaa;
+      margin-top: 30px;
+    }
+
+    /* MODAL */
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .85);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      width: 90%;
+      max-width: 450px;
+      background: #111;
+      border: 2px solid #ffcc00;
+      border-radius: 10px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .modal-content h2 {
+      color: #ffcc00;
+    }
+
+    .fechar {
+      background: #ff0000;
+      color: white;
+      margin-top: 15px;
       border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .fechar:hover {
+      background: #cc0000;
+    }
+
+    /* RESPONSIVO */
+
+    @media(max-width:600px) {
+
+      header h1 {
+        font-size: 22px;
+      }
+
+      .container {
+        width: 94%;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
     }
   </style>
+
 </head>
+
+
 <body>
-  <h1>Monitoramento de Redes Wi-Fi</h1>
 
-  <div class="card">
-    <h2>Serviço Premium</h2>
-    <p>✔ Monitoramento em tempo real da sua rede</p>
-    <p>✔ Detecção de intrusos e falhas</p>
-    <p>✔ Suporte técnico especializado</p>
-    <button class="btn" onclick="location.href='./usuario.html'">Usuários</button>
-    <button class="btn" onclick="location.href='./relatorio.html'">Relatórios</button>
-    <button class="btn" onclick="location.href='./cronograma.html'">Cronograma</button>
-    <button class="btn" onclick="location.href='./registro.html'">registro</button>
-     <button class="btn" onclick="location.href='./redes.html'">teste</button>
-      <button class="btn" onclick="location.href='./senha.html'">senha relatorio</button>
-    <button class="btn" onclick="mostrarFormulario()">Solicitar Suporte</button>
+
+  <!-- CABEÇALHO -->
+
+  <header>
+
+    <h1>
+      📡 MONITORAMENTO WI-FI
+    </h1>
+
+    <p>
+      Monitoramento manual e automático da rede
+    </p>
+
+  </header>
+
+
+  <div class="container">
+
+
+    <!-- STATUS PRINCIPAL -->
+
+    <div class="status-principal">
+
+      <h2>
+        Status da Rede Wi-Fi
+      </h2>
+
+      <div id="statusWifi" class="wifi-status">
+        ● ONLINE
+      </div>
+
+      <p>
+
+        Última verificação:
+
+        <strong id="ultimaVerificacao">
+          --
+        </strong>
+
+      </p>
+
+    </div>
+
+
+    <!-- CARDS -->
+
+    <div class="cards">
+
+
+      <div class="card" onclick="mostrarMensagem(
+                'Dispositivos',
+                'Lista de dispositivos encontrados na rede.'
+            )">
+
+        <h3>
+          Dispositivos
+        </h3>
+
+        <div class="numero azul" id="totalDispositivos">
+          0
+        </div>
+
+      </div>
+
+
+      <div class="card" onclick="mostrarMensagem(
+                'Dispositivos Online',
+                'Dispositivos atualmente conectados.'
+            )">
+
+        <h3>
+          Conectados
+        </h3>
+
+        <div class="numero verde" id="totalOnline">
+          0
+        </div>
+
+      </div>
+
+
+      <div class="card" onclick="mostrarMensagem(
+                'Dispositivos Offline',
+                'Dispositivos atualmente desconectados.'
+            )">
+
+        <h3>
+          Desconectados
+        </h3>
+
+        <div class="numero vermelho" id="totalOffline">
+          0
+        </div>
+
+      </div>
+
+
+      <div class="card" onclick="mostrarMensagem(
+                'Velocidade da Rede',
+                'Velocidade atual simulada da rede Wi-Fi.'
+            )">
+
+        <h3>
+          Velocidade
+        </h3>
+
+        <div class="numero amarelo" id="velocidade">
+          0 Mbps
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- MENU DO SISTEMA -->
+
+    <div class="menu">
+
+      <h2>
+        Menu do Sistema
+      </h2>
+
+      <div class="menu-grid">
+
+
+        <!-- USUÁRIOS -->
+
+        <a href="./usuario.html" class="menu-card">
+
+          <div class="menu-icon">
+            👤
+          </div>
+
+          <h3>
+            Usuários
+          </h3>
+
+          <p>
+            Gerencie os usuários
+            cadastrados no sistema.
+          </p>
+
+        </a>
+
+
+        <!-- CONTROLE DE ACESSO -->
+
+        <a href="./controle de acesso.html" class="menu-card">
+
+          <div class="menu-icon">
+            🔐
+          </div>
+
+          <h3>
+            Controle de Acesso
+          </h3>
+
+          <p>
+            Gerencie usuários
+            e acessos.
+          </p>
+
+        </a>
+
+
+        <!-- CRONOGRAMA -->
+
+        <a href="./cronograma.html" class="menu-card">
+
+          <div class="menu-icon">
+            📅
+          </div>
+
+          <h3>
+            Cronograma
+          </h3>
+
+          <p>
+            Atividades e
+            manutenções.
+          </p>
+
+        </a>
+
+
+        <!-- RELATÓRIO -->
+
+        <a href="./relatorio.html" class="menu-card">
+
+          <div class="menu-icon">
+            📊
+          </div>
+
+          <h3>
+            Relatório
+          </h3>
+
+          <p>
+            Relatórios do
+            monitoramento.
+          </p>
+
+        </a>
+
+
+        <!-- MONITORAMENTO -->
+
+        <a href="./monitoramento.html" class="menu-card">
+
+          <div class="menu-icon">
+            🖥️
+          </div>
+
+          <h3>
+            Monitoramento
+          </h3>
+
+          <p>
+            Monitoramento
+            detalhado da rede.
+          </p>
+
+        </a>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- INFORMAÇÕES DA REDE -->
+
+    <div class="rede">
+
+      <h2>
+        Informações da Rede
+      </h2>
+
+      <div class="informacoes">
+
+
+        <div class="info" onclick="mostrarMensagem(
+                    'Nome da Rede',
+                    'Minha_Rede_WiFi'
+                )">
+
+          <span>
+            Nome da Rede:
+          </span>
+
+          <br>
+
+          <strong>
+            Minha_Rede_WiFi
+          </strong>
+
+        </div>
+
+
+        <div class="info" onclick="mostrarMensagem(
+                    'Gateway',
+                    '192.168.0.1'
+                )">
+
+          <span>
+            IP do Gateway:
+          </span>
+
+          <br>
+
+          <strong>
+            192.168.0.1
+          </strong>
+
+        </div>
+
+
+        <div class="info" onclick="mostrarMensagem(
+                    'Frequência',
+                    'Frequência atual da rede.'
+                )">
+
+          <span>
+            Frequência:
+          </span>
+
+          <br>
+
+          <strong id="frequencia">
+            5 GHz
+          </strong>
+
+        </div>
+
+
+        <div class="info" onclick="mostrarMensagem(
+                    'Sinal',
+                    'Qualidade do sinal Wi-Fi.'
+                )">
+
+          <span>
+            Sinal:
+          </span>
+
+          <br>
+
+          <strong id="sinal" class="verde">
+            Excelente
+          </strong>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- DISPOSITIVOS -->
+
+    <div class="dispositivos">
+
+      <h2>
+        Dispositivos na Rede
+      </h2>
+
+      <div style="background:#161616;border:1px solid #333;border-radius:8px;padding:18px;margin-bottom:20px;">
+        <h3 style="color:#ffcc00;margin-top:0;">✏️ Editar dispositivo</h3>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+          <input id="editarNome" type="text" placeholder="Nome do dispositivo"
+            style="padding:11px;border-radius:6px;border:1px solid #555;background:#0b0b0b;color:#fff;">
+
+          <input id="editarIp" type="text" placeholder="IP (ex.: 192.168.0.10)"
+            style="padding:11px;border-radius:6px;border:1px solid #555;background:#0b0b0b;color:#fff;">
+
+          <select id="editarDispositivo"
+            style="padding:11px;border-radius:6px;border:1px solid #555;background:#0b0b0b;color:#fff;">
+            <option value="">Selecione um dispositivo</option>
+          </select>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="fechar" onclick="salvarEdicao()" style="margin-top:0;">
+            💾 Salvar alteração
+          </button>
+
+          <button class="fechar" onclick="novoDispositivo()" style="margin-top:0;background:#0066cc;">
+            ➕ Novo dispositivo
+          </button>
+
+          <button class="fechar" onclick="excluirDispositivo()" style="margin-top:0;background:#990000;">
+            🗑️ Excluir
+          </button>
+        </div>
+
+        <p id="mensagemEdicao" style="color:#aaa;margin-bottom:0;"></p>
+      </div>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Dispositivo
+            </th>
+
+            <th>
+              IP
+            </th>
+
+            <th>
+              Tipo
+            </th>
+
+            <th>
+              Status
+            </th>
+
+            <th>
+              Último acesso
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="listaDispositivos">
+
+        </tbody>
+
+      </table>
+
+
+      <div class="atualizacao">
+        <div style="margin-bottom:12px;">
+          <strong>Modo de monitoramento:</strong>
+          <select id="modoMonitoramento" onchange="alterarModoMonitoramento()"
+            style="margin-left:8px;padding:8px;border-radius:6px;background:#111;color:#fff;border:1px solid #ffcc00;">
+            <option value="automatico">Automático</option>
+            <option value="manual">Manual</option>
+          </select>
+        </div>
+
+        <button class="fechar" id="btnAtualizarManual" onclick="atualizarManualmente()" style="margin-top:0;">
+          🔄 Atualizar agora
+        </button>
+
+        <div id="statusModo" style="margin-top:12px;">
+          Atualização automática em:
+          <span id="contador">10</span> segundos
+        </div>
+      </div>
+
+    </div>
+
+
   </div>
 
-  <div id="formulario" class="form-box" style="display:none;">
-    <h3>Solicitação de Suporte Técnico</h3>
-    <form id="suporteForm">
-      <label>Nome:</label>
-      <input type="text" id="nome" required>
 
-      <label>E-mail:</label>
-      <input type="email" id="email" required>
+  <!-- RODAPÉ -->
 
-      <label>Tipo de solicitação:</label>
-      <select id="tipo">
-        <option>Problema no servidor</option>
-        <option>Internet lenta</option>
-        <option>Falha de conexão</option>
-        <option>Outro</option>
-      </select>
+  <footer>
 
-      <label>Prioridade:</label>
-      <select id="prioridade">
-        <option>Baixa</option>
-        <option>Média</option>
-        <option>Alta</option>
-      </select>
+    Sistema de Monitoramento Wi-Fi
+    © 2026
 
-      <label>Descrição do problema:</label>
-      <textarea id="descricao" rows="4" required></textarea>
+  </footer>
 
-      <button class="btn" type="button" onclick="enviarWhatsApp()">Enviar Solicitação</button>
-    </form>
+
+  <!-- MODAL -->
+
+  <div class="modal" id="modal">
+
+    <div class="modal-content">
+
+      <h2 id="modalTitulo">
+        Informação
+      </h2>
+
+      <p id="modalTexto">
+        Informação
+      </p>
+
+      <button class="fechar" onclick="fecharModal()">
+        Fechar
+      </button>
+
+    </div>
+
   </div>
+
 
   <script>
-    function mostrarFormulario() {
-      document.getElementById("formulario").style.display = "block";
+
+
+    /* =========================
+       DISPOSITIVOS
+    ========================= */
+
+    let dispositivos = [
+
+      {
+        nome: "PC-ADMIN",
+        ip: "192.168.0.10",
+        tipo: "Computador",
+        status: "online",
+        acesso: "Agora"
+      },
+
+      {
+        nome: "CELULAR-01",
+        ip: "192.168.0.11",
+        tipo: "Celular",
+        status: "online",
+        acesso: "Agora"
+      },
+
+      {
+        nome: "NOTEBOOK-01",
+        ip: "192.168.0.12",
+        tipo: "Notebook",
+        status: "online",
+        acesso: "Agora"
+      },
+
+      {
+        nome: "TABLET-01",
+        ip: "192.168.0.13",
+        tipo: "Tablet",
+        status: "offline",
+        acesso: "19:40:10"
+      },
+
+      {
+        nome: "SMART-TV",
+        ip: "192.168.0.14",
+        tipo: "Smart TV",
+        status: "online",
+        acesso: "Agora"
+      }
+
+    ];
+
+
+    /* =========================
+       MOSTRAR DISPOSITIVOS
+    ========================= */
+
+    function mostrarDispositivos() {
+
+      const lista =
+        document.getElementById(
+          "listaDispositivos"
+        );
+
+      lista.innerHTML = "";
+
+
+      dispositivos.forEach(
+        (dispositivo) => {
+
+          const linha =
+            document.createElement("tr");
+
+
+          linha.onclick =
+            function () {
+
+              mostrarMensagem(
+
+                dispositivo.nome,
+
+                "IP: " +
+                dispositivo.ip +
+
+                " | Tipo: " +
+                dispositivo.tipo +
+
+                " | Status: " +
+                dispositivo.status
+
+              );
+
+            };
+
+
+          linha.innerHTML = `
+
+                <td>
+                    <strong>
+                        ${dispositivo.nome}
+                    </strong>
+                </td>
+
+                <td>
+                    ${dispositivo.ip}
+                </td>
+
+                <td>
+                    ${dispositivo.tipo}
+                </td>
+
+                <td>
+
+                    <span
+                        class="status ${dispositivo.status}"
+                    >
+
+                        ${dispositivo.status === "online"
+              ? "● ONLINE"
+              : "● OFFLINE"
+            }
+
+                    </span>
+
+                </td>
+
+                <td>
+                    ${dispositivo.acesso}
+                </td>
+
+            `;
+
+
+          lista.appendChild(linha);
+
+        }
+      );
+
+
+      atualizarResumo();
+
     }
 
-    function enviarWhatsApp() {
-      var nome = document.getElementById("nome").value;
-      var email = document.getElementById("email").value;
-      var tipo = document.getElementById("tipo").value;
-      var prioridade = document.getElementById("prioridade").value;
-      var descricao = document.getElementById("descricao").value;
 
-      var mensagem = 
-        "📄 SOLICITAÇÃO DE SUPORTE TÉCNICO\n\n" +
-        "👤 Nome: " + nome + "\n" +
-        "📧 E-mail: " + email + "\n" +
-        "⚙️ Tipo de solicitação: " + tipo + "\n" +
-        "🔔 Prioridade: " + prioridade + "\n\n" +
-        "📝 Descrição do problema:\n" + descricao;
+    /* =========================
+       RESUMO
+    ========================= */
 
-      var url = "https://wa.me/5517997746829?text=" + encodeURIComponent(mensagem);
-      window.location.href = url;
+    function atualizarResumo() {
+
+      document.getElementById(
+        "totalDispositivos"
+      ).textContent =
+        dispositivos.length;
+
+
+      document.getElementById(
+        "totalOnline"
+      ).textContent =
+        dispositivos.filter(
+          d => d.status === "online"
+        ).length;
+
+
+      document.getElementById(
+        "totalOffline"
+      ).textContent =
+        dispositivos.filter(
+          d => d.status === "offline"
+        ).length;
+
+
+      const velocidade =
+        Math.floor(
+          Math.random() * 300
+        ) + 100;
+
+
+      document.getElementById(
+        "velocidade"
+      ).textContent =
+        velocidade + " Mbps";
+
     }
+
+
+    /* =========================
+       MONITORAMENTO AUTOMÁTICO
+    ========================= */
+
+    function atualizarRede() {
+
+      dispositivos.forEach(
+        dispositivo => {
+
+          if (
+            Math.random() > 0.70
+          ) {
+
+            dispositivo.status =
+              dispositivo.status === "online"
+                ? "offline"
+                : "online";
+
+
+            dispositivo.acesso =
+              new Date()
+                .toLocaleTimeString(
+                  "pt-BR"
+                );
+
+          }
+
+        }
+      );
+
+
+      const online =
+        dispositivos.filter(
+          d => d.status === "online"
+        ).length;
+
+
+      const statusWifi =
+        document.getElementById(
+          "statusWifi"
+        );
+
+
+      if (online > 0) {
+
+        statusWifi.textContent =
+          "● ONLINE";
+
+        statusWifi.className =
+          "wifi-status";
+
+      } else {
+
+        statusWifi.textContent =
+          "● OFFLINE";
+
+        statusWifi.className =
+          "wifi-status offline";
+
+      }
+
+
+      /* SINAL */
+
+      const sinais = [
+        "Excelente",
+        "Bom",
+        "Regular"
+      ];
+
+
+      document.getElementById(
+        "sinal"
+      ).textContent =
+        sinais[
+        Math.floor(
+          Math.random() *
+          sinais.length
+        )
+        ];
+
+
+      /* FREQUÊNCIA */
+
+      const frequencias = [
+        "2.4 GHz",
+        "5 GHz"
+      ];
+
+
+      document.getElementById(
+        "frequencia"
+      ).textContent =
+        frequencias[
+        Math.floor(
+          Math.random() *
+          frequencias.length
+        )
+        ];
+
+
+      /* ÚLTIMA VERIFICAÇÃO */
+
+      document.getElementById(
+        "ultimaVerificacao"
+      ).textContent =
+        new Date()
+          .toLocaleString("pt-BR");
+
+
+      mostrarDispositivos();
+
+    }
+
+
+    /* =========================
+       EDIÇÃO DOS DISPOSITIVOS
+    ========================= */
+
+    function carregarDispositivosNoEditor() {
+      const select = document.getElementById("editarDispositivo");
+      if (!select) return;
+
+      const selecionado = select.value;
+
+      select.innerHTML =
+        '<option value="">Selecione um dispositivo</option>';
+
+      dispositivos.forEach((dispositivo, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent =
+          dispositivo.nome + " — " + dispositivo.ip;
+        select.appendChild(option);
+      });
+
+      if (
+        selecionado !== "" &&
+        dispositivos[Number(selecionado)]
+      ) {
+        select.value = selecionado;
+      }
+    }
+
+    function carregarDadosParaEditar() {
+      const select =
+        document.getElementById("editarDispositivo");
+
+      const nome =
+        document.getElementById("editarNome");
+
+      const ip =
+        document.getElementById("editarIp");
+
+      if (select.value === "") {
+        nome.value = "";
+        ip.value = "";
+        return;
+      }
+
+      const dispositivo =
+        dispositivos[Number(select.value)];
+
+      if (!dispositivo) return;
+
+      nome.value = dispositivo.nome;
+      ip.value = dispositivo.ip;
+    }
+
+    function mostrarMensagemEdicao(texto) {
+      const mensagem =
+        document.getElementById("mensagemEdicao");
+
+      if (mensagem) {
+        mensagem.textContent = texto;
+      }
+    }
+
+    function salvarEdicao() {
+      const select =
+        document.getElementById("editarDispositivo");
+
+      const nome =
+        document.getElementById("editarNome").value.trim();
+
+      const ip =
+        document.getElementById("editarIp").value.trim();
+
+      if (select.value === "") {
+        mostrarMensagemEdicao(
+          "⚠️ Selecione um dispositivo."
+        );
+        return;
+      }
+
+      if (!nome || !ip) {
+        mostrarMensagemEdicao(
+          "⚠️ Informe o nome e o IP."
+        );
+        return;
+      }
+
+      const dispositivo =
+        dispositivos[Number(select.value)];
+
+      dispositivo.nome = nome;
+      dispositivo.ip = ip;
+
+      mostrarDispositivos();
+      carregarDispositivosNoEditor();
+
+      document.getElementById("editarDispositivo").value =
+        select.value;
+
+      mostrarMensagemEdicao(
+        "✅ Nome e IP alterados com sucesso!"
+      );
+    }
+
+    function novoDispositivo() {
+      const nome =
+        document.getElementById("editarNome").value.trim();
+
+      const ip =
+        document.getElementById("editarIp").value.trim();
+
+      if (!nome || !ip) {
+        mostrarMensagemEdicao(
+          "⚠️ Digite o nome e o IP do novo dispositivo."
+        );
+        return;
+      }
+
+      dispositivos.push({
+        nome: nome,
+        ip: ip,
+        tipo: "Dispositivo",
+        status: "online",
+        acesso: "Agora"
+      });
+
+      mostrarDispositivos();
+      carregarDispositivosNoEditor();
+
+      const select =
+        document.getElementById("editarDispositivo");
+
+      select.value = dispositivos.length - 1;
+
+      mostrarMensagemEdicao(
+        "✅ Novo dispositivo adicionado!"
+      );
+    }
+
+    function excluirDispositivo() {
+      const select =
+        document.getElementById("editarDispositivo");
+
+      if (select.value === "") {
+        mostrarMensagemEdicao(
+          "⚠️ Selecione um dispositivo para excluir."
+        );
+        return;
+      }
+
+      const indice = Number(select.value);
+      const nome = dispositivos[indice].nome;
+
+      if (!confirm(
+        'Deseja realmente excluir "' + nome + '"?'
+      )) {
+        return;
+      }
+
+      dispositivos.splice(indice, 1);
+
+      document.getElementById("editarNome").value = "";
+      document.getElementById("editarIp").value = "";
+
+      mostrarDispositivos();
+      carregarDispositivosNoEditor();
+
+      mostrarMensagemEdicao(
+        "🗑️ Dispositivo excluído."
+      );
+    }
+
+    function iniciarEditor() {
+      carregarDispositivosNoEditor();
+
+      const select =
+        document.getElementById("editarDispositivo");
+
+      if (select) {
+        select.addEventListener(
+          "change",
+          carregarDadosParaEditar
+        );
+      }
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    function mostrarMensagem(
+      titulo,
+      texto
+    ) {
+
+      document.getElementById(
+        "modalTitulo"
+      ).textContent =
+        titulo;
+
+
+      document.getElementById(
+        "modalTexto"
+      ).textContent =
+        texto;
+
+
+      document.getElementById(
+        "modal"
+      ).style.display =
+        "flex";
+
+    }
+
+
+    function fecharModal() {
+
+      document.getElementById(
+        "modal"
+      ).style.display =
+        "none";
+
+    }
+
+
+    /* FECHAR MODAL CLICANDO FORA */
+
+    document.getElementById(
+      "modal"
+    ).addEventListener(
+      "click",
+      function (event) {
+
+        if (
+          event.target === this
+        ) {
+
+          fecharModal();
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       MODO MANUAL E AUTOMÁTICO
+    ========================= */
+
+    let contador = 10;
+    let modoMonitoramento = "automatico";
+
+    function alterarModoMonitoramento() {
+      modoMonitoramento =
+        document.getElementById("modoMonitoramento").value;
+
+      const statusModo =
+        document.getElementById("statusModo");
+
+      if (modoMonitoramento === "manual") {
+        statusModo.innerHTML =
+          "Modo manual ativo — clique em <strong>Atualizar agora</strong> quando quiser verificar a rede.";
+      } else {
+        contador = 10;
+        statusModo.innerHTML =
+          'Atualização automática em: <span id="contador">10</span> segundos';
+      }
+    }
+
+    function atualizarManualmente() {
+      atualizarRede();
+      contador = 10;
+
+      const statusModo =
+        document.getElementById("statusModo");
+
+      if (modoMonitoramento === "manual") {
+        statusModo.innerHTML =
+          'Última atualização manual: <strong>' +
+          new Date().toLocaleTimeString("pt-BR") +
+          '</strong>';
+      } else {
+        statusModo.innerHTML =
+          'Atualização automática em: <span id="contador">10</span> segundos';
+      }
+    }
+
+    /* AUTOMÁTICO A CADA 1 SEGUNDO */
+    setInterval(function () {
+
+      if (modoMonitoramento !== "automatico") {
+        return;
+      }
+
+      contador--;
+
+      const contadorElemento =
+        document.getElementById("contador");
+
+      if (contadorElemento) {
+        contadorElemento.textContent = contador;
+      }
+
+      if (contador <= 0) {
+        contador = 10;
+        atualizarRede();
+      }
+
+    }, 1000);
+
+    /* =========================
+       INICIALIZAÇÃO
+    ========================= */
+
+    mostrarDispositivos();
+    iniciarEditor();
+
+    atualizarRede();
+
+
   </script>
+
+
 </body>
+
 </html>
