@@ -2,352 +2,2049 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Painel de Monitoramento</title>
+    <title>Relatórios de Clientes</title>
+
 
     <style>
         * {
             box-sizing: border-box;
         }
 
+
         body {
-            font-family: Arial, sans-serif;
-            background: #000;
-            color: #fff;
+
             margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #000;
+
+            color: #fff;
+
         }
+
+
+        /* ================================
+           CABEÇALHO
+        ================================= */
 
         header {
+
             background: #ff0000;
+
             padding: 25px;
+
             text-align: center;
+
+            border-bottom: 3px solid #ffcc00;
+
         }
+
 
         header h1 {
+
             margin: 0;
+
             color: #ffcc00;
+
         }
+
 
         header p {
+
             margin-bottom: 0;
+
         }
+
+
+        /* ================================
+           CONTAINER
+        ================================= */
 
         .container {
-            width: 90%;
-            max-width: 1000px;
+
+            width: 92%;
+
+            max-width: 1100px;
+
             margin: 30px auto;
+
         }
+
+
+        /* ================================
+           CARDS
+        ================================= */
 
         .card {
+
             background: #111;
+
             border: 2px solid #ffcc00;
+
             border-radius: 10px;
+
             padding: 25px;
+
             margin-bottom: 25px;
+
         }
+
 
         .card h2 {
-            color: #ffcc00;
+
             margin-top: 0;
-        }
 
-        /* CARDS CLICÁVEIS */
-
-        .menu {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .menu-card {
-            display: block;
-            background: #111;
-            border: 2px solid #ffcc00;
-            border-radius: 10px;
-            padding: 30px 20px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .menu-card:hover {
-            background: #ff0000;
-            transform: translateY(-5px);
-            box-shadow: 0 0 15px #ffcc00;
-        }
-
-        .menu-card:hover h2 {
-            color: #fff;
-        }
-
-        .menu-card h2 {
             color: #ffcc00;
-            margin: 15px 0 10px;
+
         }
 
-        .menu-card p {
-            color: #ccc;
-            margin: 0;
-        }
 
-        .menu-icon {
-            font-size: 45px;
-        }
+        /* ================================
+           FORMULÁRIO
+        ================================= */
 
-        /* STATUS */
+        .formulario {
 
-        .status {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
             gap: 15px;
+
         }
 
-        .status-box {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
+
+        .campo {
+
+            display: flex;
+
+            flex-direction: column;
+
         }
 
-        .status-box h3 {
-            margin-top: 0;
+
+        .campo label {
+
             color: #ffcc00;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
         }
 
-        .online {
+
+        input,
+        textarea,
+        select {
+
+            width: 100%;
+
+            padding: 13px;
+
+            background: #1a1a1a;
+
+            color: #fff;
+
+            border: 1px solid #555;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+        }
+
+
+        textarea {
+
+            min-height: 130px;
+
+            resize: vertical;
+
+        }
+
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+
+            outline: none;
+
+            border-color: #ffcc00;
+
+        }
+
+
+        .campo-grande {
+
+            grid-column: 1 / -1;
+
+        }
+
+
+        /* ================================
+           BOTÕES
+        ================================= */
+
+        button {
+
+            border: none;
+
+            border-radius: 7px;
+
+            padding: 13px 18px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .2s;
+
+        }
+
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+            filter: brightness(1.15);
+
+        }
+
+
+        .verde {
+
+            background: #00b83d;
+
+            color: #fff;
+
+        }
+
+
+        .vermelho {
+
+            background: #cc0000;
+
+            color: #fff;
+
+        }
+
+
+        .azul {
+
+            background: #0066cc;
+
+            color: #fff;
+
+        }
+
+
+        .amarelo {
+
+            background: #ffcc00;
+
+            color: #000;
+
+        }
+
+
+        .cinza {
+
+            background: #555;
+
+            color: #fff;
+
+        }
+
+
+        .botoes {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            margin-top: 15px;
+
+        }
+
+
+        /* ================================
+           PESQUISA
+        ================================= */
+
+        .pesquisa {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* ================================
+           CLIENTES
+        ================================= */
+
+        .clientes {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(300px, 1fr));
+
+            gap: 20px;
+
+        }
+
+
+        .cliente {
+
+            background: #1a1a1a;
+
+            border: 1px solid #444;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            transition: .3s;
+
+        }
+
+
+        .cliente:hover {
+
+            border-color: #ffcc00;
+
+            box-shadow:
+                0 0 15px rgba(255, 204, 0, .25);
+
+            transform: translateY(-3px);
+
+        }
+
+
+        .cliente h3 {
+
+            color: #ffcc00;
+
+            margin-top: 0;
+
+        }
+
+
+        .cliente p {
+
+            color: #ddd;
+
+            margin: 8px 0;
+
+        }
+
+
+        .cliente-id {
+
+            color: #ffcc00 !important;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ================================
+           ESTATÍSTICAS
+        ================================= */
+
+        .estatisticas {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+
+            gap: 15px;
+
+        }
+
+
+        .estatistica {
+
+            background: #1a1a1a;
+
+            border: 1px solid #333;
+
+            border-radius: 8px;
+
+            padding: 20px;
+
+            text-align: center;
+
+        }
+
+
+        .estatistica h3 {
+
+            color: #ffcc00;
+
+            margin-top: 0;
+
+        }
+
+
+        .numero {
+
+            font-size: 30px;
+
             color: #00ff00;
+
             font-weight: bold;
+
         }
 
-        .offline {
-            color: #ff0000;
-            font-weight: bold;
+
+        /* ================================
+           MODAL
+        ================================= */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, .85);
+
+            z-index: 9999;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
         }
 
-        /* RODAPÉ */
+
+        .modal-conteudo {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            background: #111;
+
+            border: 2px solid #ffcc00;
+
+            border-radius: 10px;
+
+            padding: 25px;
+
+        }
+
+
+        .modal-conteudo h2 {
+
+            color: #ffcc00;
+
+            margin-top: 0;
+
+        }
+
+
+        .relatorio-item {
+
+            background: #1a1a1a;
+
+            border: 1px solid #444;
+
+            border-radius: 8px;
+
+            padding: 15px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .relatorio-item h4 {
+
+            color: #ffcc00;
+
+            margin-top: 0;
+
+        }
+
+
+        /* ================================
+           RODAPÉ
+        ================================= */
 
         footer {
-            text-align: center;
-            padding: 20px;
+
             background: #111;
+
             color: #aaa;
+
+            text-align: center;
+
+            padding: 20px;
+
             margin-top: 30px;
+
+        }
+
+
+        /* ================================
+           CELULAR
+        ================================= */
+
+        @media(max-width:600px) {
+
+            .container {
+
+                width: 94%;
+
+            }
+
+
+            .botoes {
+
+                flex-direction: column;
+
+            }
+
+
+            .botoes button {
+
+                width: 100%;
+
+            }
+
         }
     </style>
 
 </head>
 
+
 <body>
 
-    <!-- CABEÇALHO -->
+
+    <!-- ==========================================================
+     CABEÇALHO
+========================================================== -->
 
     <header>
 
-        <h1>PAINEL DE MONITORAMENTO</h1>
+        <h1>
+            📁 RELATÓRIOS DE CLIENTES
+        </h1>
 
         <p>
-            Controle de acessos, cronograma e relatórios
+            Cadastro e gerenciamento dos relatórios dos clientes
         </p>
 
     </header>
 
 
-    <div class="container">
+
+    <main class="container">
 
 
-        <!-- MENU PRINCIPAL -->
+        <!-- ======================================================
+         ESTATÍSTICAS
+    ======================================================= -->
 
-        <div class="card">
+        <section class="card">
 
-            <h2>Menu do Sistema</h2>
+            <h2>
+                📊 Resumo
+            </h2>
 
-            <div class="menu">
+
+            <div class="estatisticas">
 
 
-                <!-- CONTROLE DE ACESSO -->
+                <div class="estatistica">
 
-                <a href="./controle de acesso.html" class="menu-card">
+                    <h3>
+                        Clientes
+                    </h3>
 
-                    <div class="menu-icon">
-                        🔐
+                    <div class="numero" id="totalClientes">
+                        0
                     </div>
-
-                    <h2>
-                        Controle de Acesso
-                    </h2>
-
-                    <p>
-                        Gerencie e controle os acessos ao sistema.
-                    </p>
-
-                </a>
-
-
-                <!-- CRONOGRAMA -->
-
-                <a href="./cronograma.html" class="menu-card">
-
-                    <div class="menu-icon">
-                        📅
-                    </div>
-
-                    <h2>
-                        Cronograma
-                    </h2>
-
-                    <p>
-                        Consulte o cronograma de atividades e manutenções.
-                    </p>
-
-                </a>
-
-
-                <!-- RELATÓRIO -->
-
-                <a href="./RELATORIO.HTML" class="menu-card">
-
-                    <div class="menu-icon">
-                        📊
-                    </div>
-
-                    <h2>
-                        Relatório
-                    </h2>
-
-                    <p>
-                        Acesse os relatórios de monitoramento do sistema.
-                    </p>
-
-                </a>
-
-
-                <!-- MONITORAMENTO -->
-
-                <a href="./monitoramento.html" class="menu-card">
-
-                    <div class="menu-icon">
-                        🖥️
-                    </div>
-
-                    <h2>
-                        Monitoramento
-                    </h2>
-
-                    <p>
-                        Acompanhe o monitoramento da rede e dos serviços.
-                    </p>
-
-                </a>
-
-
-            </div>
-
-        </div>
-
-
-        <!-- STATUS DO SISTEMA -->
-
-        <div class="card">
-
-            <h2>Status do Monitoramento</h2>
-
-            <div class="status">
-
-
-                <div class="status-box">
-
-                    <h3>Sistema</h3>
-
-                    <p class="online">
-                        ● ONLINE
-                    </p>
 
                 </div>
 
 
-                <div class="status-box">
+                <div class="estatistica">
 
-                    <h3>Servidor</h3>
+                    <h3>
+                        Relatórios
+                    </h3>
 
-                    <p class="online">
-                        ● OPERACIONAL
-                    </p>
-
-                </div>
-
-
-                <div class="status-box">
-
-                    <h3>Monitoramento</h3>
-
-                    <p class="online">
-                        ● ATIVO
-                    </p>
+                    <div class="numero" id="totalRelatorios">
+                        0
+                    </div>
 
                 </div>
 
 
-                <div class="status-box">
+                <div class="estatistica">
 
-                    <h3>Última Verificação</h3>
+                    <h3>
+                        Hoje
+                    </h3>
 
-                    <p id="horaAtual">
-                        --/--/---- --:--:--
-                    </p>
+                    <div class="numero" id="relatoriosHoje">
+                        0
+                    </div>
 
                 </div>
 
 
             </div>
 
-        </div>
+        </section>
 
 
-    </div>
+
+        <!-- ======================================================
+         NOVO CLIENTE
+    ======================================================= -->
+
+        <section class="card">
+
+            <h2>
+                👤 Cadastrar Cliente
+            </h2>
 
 
-    <!-- RODAPÉ -->
+            <form id="formCliente" class="formulario">
+
+
+                <div class="campo">
+
+                    <label>
+                        Nome do cliente
+                    </label>
+
+                    <input type="text" id="nomeCliente" placeholder="Nome completo" required>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        Telefone
+                    </label>
+
+                    <input type="tel" id="telefoneCliente" placeholder="Telefone" required>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        E-mail
+                    </label>
+
+                    <input type="email" id="emailCliente" placeholder="E-mail">
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        IP
+                    </label>
+
+                    <input type="text" id="ipCliente" placeholder="Ex: 192.168.0.10">
+
+                </div>
+
+
+                <div class="campo-grande">
+
+                    <div class="botoes">
+
+                        <button type="submit" class="verde">
+                            ➕ CRIAR PASTA DO CLIENTE
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+
+        <!-- ======================================================
+         LISTA DE CLIENTES
+    ======================================================= -->
+
+        <section class="card">
+
+            <h2>
+                📂 Pastas dos Clientes
+            </h2>
+
+
+            <input type="text" id="pesquisa" class="pesquisa" placeholder="🔎 Pesquisar cliente...">
+
+
+            <div id="listaClientes" class="clientes"></div>
+
+        </section>
+
+
+    </main>
+
+
 
     <footer>
 
-        Sistema de Monitoramento © 2026
+        Sistema de Relatórios © 2026
 
     </footer>
 
 
+
+    <!-- ==========================================================
+     MODAL RELATÓRIOS
+========================================================== -->
+
+    <div class="modal" id="modalRelatorios" onclick="fecharModal()">
+
+        <div class="modal-conteudo" onclick="event.stopPropagation()">
+
+            <h2 id="tituloModal">
+                📁 Relatórios
+            </h2>
+
+
+            <div id="conteudoRelatorios"></div>
+
+
+            <button class="vermelho" onclick="fecharModal()">
+                FECHAR
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==========================================================
+     MODAL NOVO RELATÓRIO
+========================================================== -->
+
+    <div class="modal" id="modalNovoRelatorio" onclick="fecharModalRelatorio()">
+
+        <div class="modal-conteudo" onclick="event.stopPropagation()">
+
+            <h2>
+                📝 Novo Relatório
+            </h2>
+
+
+            <p id="clienteSelecionado"></p>
+
+
+            <form id="formRelatorio">
+
+
+                <div class="campo">
+
+                    <label>
+                        Título
+                    </label>
+
+                    <input type="text" id="tituloRelatorio" placeholder="Título do relatório" required>
+
+                </div>
+
+
+                <br>
+
+
+                <div class="campo">
+
+                    <label>
+                        Descrição / Relatório
+                    </label>
+
+                    <textarea id="textoRelatorio" placeholder="Digite o relatório..." required></textarea>
+
+                </div>
+
+
+                <div class="botoes">
+
+                    <button type="submit" class="verde">
+                        💾 SALVAR RELATÓRIO
+                    </button>
+
+
+                    <button type="button" class="vermelho" onclick="fecharModalRelatorio()">
+                        CANCELAR
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
     <script>
 
-        function atualizarHora() {
+        /* ==========================================================
+           CONFIGURAÇÃO
+        ========================================================== */
 
-            const agora = new Date();
+        const CHAVE_CLIENTES =
+            "clientesRelatorios";
 
-            const data =
-                agora.toLocaleDateString("pt-BR");
 
-            const hora =
-                agora.toLocaleTimeString("pt-BR");
+        const NUMERO_WHATSAPP =
+            "5517997746829";
 
-            document
-                .getElementById("horaAtual")
-                .textContent =
-                data + " " + hora;
+
+        let clienteAtual =
+            null;
+
+
+
+        /* ==========================================================
+           PEGAR CLIENTES
+        ========================================================== */
+
+        function obterClientes() {
+
+            const dados =
+                localStorage.getItem(
+                    CHAVE_CLIENTES
+                );
+
+
+            if (!dados) {
+
+                return [];
+
+            }
+
+
+            try {
+
+                return JSON.parse(
+                    dados
+                );
+
+            }
+
+            catch {
+
+                return [];
+
+            }
 
         }
 
 
-        atualizarHora();
 
-        setInterval(
-            atualizarHora,
-            1000
-        );
+        /* ==========================================================
+           SALVAR CLIENTES
+        ========================================================== */
+
+        function salvarClientes(
+            clientes
+        ) {
+
+            localStorage.setItem(
+
+                CHAVE_CLIENTES,
+
+                JSON.stringify(
+                    clientes
+                )
+
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           GERAR ID
+        ========================================================== */
+
+        function gerarID() {
+
+            return (
+
+                "CLI-" +
+
+                Date.now()
+                    .toString(36)
+                    .toUpperCase()
+
+                +
+
+                "-" +
+
+                Math.random()
+                    .toString(36)
+                    .substring(2, 6)
+                    .toUpperCase()
+
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           CADASTRAR CLIENTE
+        ========================================================== */
+
+        document
+            .getElementById("formCliente")
+            .addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const nome =
+                        document
+                            .getElementById(
+                                "nomeCliente"
+                            )
+                            .value
+                            .trim();
+
+
+                    const telefone =
+                        document
+                            .getElementById(
+                                "telefoneCliente"
+                            )
+                            .value
+                            .trim();
+
+
+                    const email =
+                        document
+                            .getElementById(
+                                "emailCliente"
+                            )
+                            .value
+                            .trim();
+
+
+                    const ip =
+                        document
+                            .getElementById(
+                                "ipCliente"
+                            )
+                            .value
+                            .trim();
+
+
+                    if (!nome || !telefone) {
+
+                        alert(
+                            "Digite o nome e o telefone do cliente."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const clientes =
+                        obterClientes();
+
+
+                    const novoCliente = {
+
+                        id:
+                            gerarID(),
+
+                        nome:
+                            nome,
+
+                        telefone:
+                            telefone,
+
+                        email:
+                            email || "Não informado",
+
+                        ip:
+                            ip || "Não informado",
+
+                        dataCadastro:
+                            new Date()
+                                .toLocaleString(
+                                    "pt-BR"
+                                ),
+
+                        relatorios: []
+
+                    };
+
+
+                    clientes.push(
+                        novoCliente
+                    );
+
+
+                    salvarClientes(
+                        clientes
+                    );
+
+
+                    document
+                        .getElementById(
+                            "formCliente"
+                        )
+                        .reset();
+
+
+                    atualizarTela();
+
+
+                    alert(
+                        "Pasta do cliente criada com sucesso!"
+                    );
+
+                }
+            );
+
+
+
+        /* ==========================================================
+           MOSTRAR CLIENTES
+        ========================================================== */
+
+        function atualizarTela() {
+
+            mostrarClientes();
+
+            atualizarEstatisticas();
+
+        }
+
+
+
+        function mostrarClientes() {
+
+            const lista =
+                document.getElementById(
+                    "listaClientes"
+                );
+
+
+            const pesquisa =
+                document
+                    .getElementById(
+                        "pesquisa"
+                    )
+                    .value
+                    .toLowerCase();
+
+
+            const clientes =
+                obterClientes();
+
+
+            lista.innerHTML =
+                "";
+
+
+            const filtrados =
+                clientes.filter(
+
+                    cliente =>
+
+                        cliente.nome
+                            .toLowerCase()
+                            .includes(
+                                pesquisa
+                            )
+
+                );
+
+
+            if (
+                filtrados.length === 0
+            ) {
+
+                lista.innerHTML = `
+
+                <div class="cliente">
+
+                    <h3>
+                        📂 Nenhum cliente
+                    </h3>
+
+                    <p>
+                        Cadastre um cliente acima
+                        para criar sua pasta.
+                    </p>
+
+                </div>
+
+            `;
+
+                return;
+
+            }
+
+
+
+            filtrados.forEach(
+                cliente => {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "cliente";
+
+
+                    div.innerHTML = `
+
+                    <h3>
+                        📁 ${escaparHTML(cliente.nome)}
+                    </h3>
+
+                    <p class="cliente-id">
+                        ID:
+                        ${escaparHTML(cliente.id)}
+                    </p>
+
+                    <p>
+                        📱
+                        ${escaparHTML(cliente.telefone)}
+                    </p>
+
+                    <p>
+                        📧
+                        ${escaparHTML(cliente.email)}
+                    </p>
+
+                    <p>
+                        🌐 IP:
+                        ${escaparHTML(cliente.ip)}
+                    </p>
+
+                    <p>
+                        📝 Relatórios:
+                        <strong>
+                            ${cliente.relatorios.length}
+                        </strong>
+                    </p>
+
+                    <p>
+                        📅 Cadastro:
+                        ${escaparHTML(cliente.dataCadastro)}
+                    </p>
+
+
+                    <div class="botoes">
+
+
+                        <button
+                            class="amarelo"
+                            onclick="novoRelatorio('${cliente.id}')"
+                        >
+                            📝 NOVO RELATÓRIO
+                        </button>
+
+
+                        <button
+                            class="azul"
+                            onclick="verRelatorios('${cliente.id}')"
+                        >
+                            📂 ABRIR PASTA
+                        </button>
+
+
+                        <button
+                            class="verde"
+                            onclick="suporteCliente('${cliente.id}')"
+                        >
+                            📱 WHATSAPP
+                        </button>
+
+
+                        <button
+                            class="vermelho"
+                            onclick="excluirCliente('${cliente.id}')"
+                        >
+                            🗑️ EXCLUIR
+                        </button>
+
+
+                    </div>
+
+                `;
+
+
+                    lista.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           PESQUISA
+        ========================================================== */
+
+        document
+            .getElementById("pesquisa")
+            .addEventListener(
+                "input",
+                mostrarClientes
+            );
+
+
+
+        /* ==========================================================
+           NOVO RELATÓRIO
+        ========================================================== */
+
+        function novoRelatorio(
+            id
+        ) {
+
+            const clientes =
+                obterClientes();
+
+
+            const cliente =
+                clientes.find(
+
+                    item =>
+                        item.id === id
+
+                );
+
+
+            if (!cliente) {
+
+                return;
+
+            }
+
+
+            clienteAtual =
+                id;
+
+
+            document
+                .getElementById(
+                    "clienteSelecionado"
+                )
+                .textContent =
+
+                "Cliente: " +
+                cliente.nome;
+
+
+            document
+                .getElementById(
+                    "modalNovoRelatorio"
+                )
+                .style.display =
+                "flex";
+
+        }
+
+
+
+        /* ==========================================================
+           SALVAR RELATÓRIO
+        ========================================================== */
+
+        document
+            .getElementById(
+                "formRelatorio"
+            )
+            .addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    if (!clienteAtual) {
+
+                        return;
+
+                    }
+
+
+                    const titulo =
+                        document
+                            .getElementById(
+                                "tituloRelatorio"
+                            )
+                            .value
+                            .trim();
+
+
+                    const texto =
+                        document
+                            .getElementById(
+                                "textoRelatorio"
+                            )
+                            .value
+                            .trim();
+
+
+                    if (!titulo || !texto) {
+
+                        alert(
+                            "Preencha o título e o relatório."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const clientes =
+                        obterClientes();
+
+
+                    const cliente =
+                        clientes.find(
+
+                            item =>
+                                item.id ===
+                                clienteAtual
+
+                        );
+
+
+                    if (!cliente) {
+
+                        return;
+
+                    }
+
+
+                    cliente.relatorios.push({
+
+                        id:
+                            "REL-" +
+                            Date.now(),
+
+                        titulo:
+                            titulo,
+
+                        texto:
+                            texto,
+
+                        data:
+                            new Date()
+                                .toLocaleString(
+                                    "pt-BR"
+                                )
+
+                    });
+
+
+                    salvarClientes(
+                        clientes
+                    );
+
+
+                    document
+                        .getElementById(
+                            "formRelatorio"
+                        )
+                        .reset();
+
+
+                    fecharModalRelatorio();
+
+
+                    atualizarTela();
+
+
+                    alert(
+                        "Relatório salvo na pasta do cliente!"
+                    );
+
+                }
+            );
+
+
+
+        /* ==========================================================
+           ABRIR PASTA
+        ========================================================== */
+
+        function verRelatorios(
+            id
+        ) {
+
+            const clientes =
+                obterClientes();
+
+
+            const cliente =
+                clientes.find(
+
+                    item =>
+                        item.id === id
+
+                );
+
+
+            if (!cliente) {
+
+                return;
+
+            }
+
+
+            document
+                .getElementById(
+                    "tituloModal"
+                )
+                .textContent =
+
+                "📁 " +
+                cliente.nome;
+
+
+            const conteudo =
+                document
+                    .getElementById(
+                        "conteudoRelatorios"
+                    );
+
+
+            conteudo.innerHTML =
+                "";
+
+
+            if (
+                cliente.relatorios.length === 0
+            ) {
+
+                conteudo.innerHTML = `
+
+                <div class="relatorio-item">
+
+                    <h4>
+                        📄 Nenhum relatório
+                    </h4>
+
+                    <p>
+                        Esta pasta ainda não possui relatórios.
+                    </p>
+
+                </div>
+
+            `;
+
+            }
+
+
+            cliente.relatorios.forEach(
+                relatorio => {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "relatorio-item";
+
+
+                    div.innerHTML = `
+
+                    <h4>
+                        📝
+                        ${escaparHTML(relatorio.titulo)}
+                    </h4>
+
+                    <p>
+                        <strong>
+                            Data:
+                        </strong>
+
+                        ${escaparHTML(relatorio.data)}
+                    </p>
+
+                    <p>
+                        ${escaparHTML(relatorio.texto)}
+                    </p>
+
+
+                    <div class="botoes">
+
+                        <button
+                            class="verde"
+                            onclick="enviarRelatorioWhatsApp(
+                                '${cliente.id}',
+                                '${relatorio.id}'
+                            )"
+                        >
+                            📱 ENVIAR WHATSAPP
+                        </button>
+
+
+                        <button
+                            class="vermelho"
+                            onclick="excluirRelatorio(
+                                '${cliente.id}',
+                                '${relatorio.id}'
+                            )"
+                        >
+                            🗑️ EXCLUIR
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                    conteudo.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+
+            document
+                .getElementById(
+                    "modalRelatorios"
+                )
+                .style.display =
+                "flex";
+
+        }
+
+
+
+        /* ==========================================================
+           EXCLUIR CLIENTE
+        ========================================================== */
+
+        function excluirCliente(
+            id
+        ) {
+
+            const clientes =
+                obterClientes();
+
+
+            const cliente =
+                clientes.find(
+
+                    item =>
+                        item.id === id
+
+                );
+
+
+            if (!cliente) {
+
+                return;
+
+            }
+
+
+            const confirmar =
+                confirm(
+
+                    "Deseja excluir a pasta do cliente " +
+
+                    cliente.nome +
+
+                    "?\n\n" +
+
+                    "Todos os relatórios também serão excluídos."
+
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            const novosClientes =
+                clientes.filter(
+
+                    item =>
+                        item.id !== id
+
+                );
+
+
+            salvarClientes(
+                novosClientes
+            );
+
+
+            atualizarTela();
+
+
+            alert(
+                "Cliente excluído."
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           EXCLUIR RELATÓRIO
+        ========================================================== */
+
+        function excluirRelatorio(
+            clienteId,
+            relatorioId
+        ) {
+
+            const clientes =
+                obterClientes();
+
+
+            const cliente =
+                clientes.find(
+
+                    item =>
+                        item.id === clienteId
+
+                );
+
+
+            if (!cliente) {
+
+                return;
+
+            }
+
+
+            const confirmar =
+                confirm(
+                    "Deseja excluir este relatório?"
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            cliente.relatorios =
+                cliente.relatorios.filter(
+
+                    relatorio =>
+                        relatorio.id !==
+                        relatorioId
+
+                );
+
+
+            salvarClientes(
+                clientes
+            );
+
+
+            verRelatorios(
+                clienteId
+            );
+
+
+            atualizarTela();
+
+        }
+
+
+
+        /* ==========================================================
+           WHATSAPP DO CLIENTE
+        ========================================================== */
+
+        function suporteCliente(
+            id
+        ) {
+
+            const clientes =
+                obterClientes();
+
+
+            const cliente =
+                clientes.find(
+
+                    item =>
+                        item.id === id
+
+                );
+
+
+            if (!cliente) {
+
+                return;
+
+            }
+
+
+            const mensagem =
+
+                "Olá, preciso de suporte técnico." +
+
+                "\n\n" +
+
+                "Cliente: " +
+                cliente.nome +
+
+                "\nID: " +
+                cliente.id +
+
+                "\nTelefone: " +
+                cliente.telefone +
+
+                "\nE-mail: " +
+                cliente.email +
+
+                "\nIP: " +
+                cliente.ip;
+
+
+            abrirWhatsApp(
+                mensagem
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           ENVIAR RELATÓRIO PELO WHATSAPP
+        ========================================================== */
+
+        function enviarRelatorioWhatsApp(
+            clienteId,
+            relatorioId
+        ) {
+
+            const clientes =
+                obterClientes();
+
+
+            const cliente =
+                clientes.find(
+
+                    item =>
+                        item.id ===
+                        clienteId
+
+                );
+
+
+            if (!cliente) {
+
+                return;
+
+            }
+
+
+            const relatorio =
+                cliente.relatorios.find(
+
+                    item =>
+                        item.id ===
+                        relatorioId
+
+                );
+
+
+            if (!relatorio) {
+
+                return;
+
+            }
+
+
+            const mensagem =
+
+                "📄 RELATÓRIO DO CLIENTE" +
+
+                "\n\n" +
+
+                "Cliente: " +
+                cliente.nome +
+
+                "\nID: " +
+                cliente.id +
+
+                "\n\n" +
+
+                "Título: " +
+                relatorio.titulo +
+
+                "\n\n" +
+
+                relatorio.texto +
+
+                "\n\n" +
+
+                "Data: " +
+                relatorio.data;
+
+
+            abrirWhatsApp(
+                mensagem
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           WHATSAPP
+        ========================================================== */
+
+        function abrirWhatsApp(
+            mensagem
+        ) {
+
+            const url =
+
+                "https://wa.me/" +
+
+                NUMERO_WHATSAPP +
+
+                "?text=" +
+
+                encodeURIComponent(
+                    mensagem
+                );
+
+
+            window.open(
+                url,
+                "_blank"
+            );
+
+        }
+
+
+
+        /* ==========================================================
+           ESTATÍSTICAS
+        ========================================================== */
+
+        function atualizarEstatisticas() {
+
+            const clientes =
+                obterClientes();
+
+
+            let totalRelatorios =
+                0;
+
+
+            let relatoriosHoje =
+                0;
+
+
+            const hoje =
+                new Date()
+                    .toLocaleDateString(
+                        "pt-BR"
+                    );
+
+
+            clientes.forEach(
+                cliente => {
+
+                    totalRelatorios +=
+                        cliente.relatorios.length;
+
+
+                    cliente.relatorios.forEach(
+                        relatorio => {
+
+                            if (
+                                relatorio.data
+                                    .startsWith(
+                                        hoje
+                                    )
+                            ) {
+
+                                relatoriosHoje++;
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+            document
+                .getElementById(
+                    "totalClientes"
+                )
+                .textContent =
+                clientes.length;
+
+
+            document
+                .getElementById(
+                    "totalRelatorios"
+                )
+                .textContent =
+                totalRelatorios;
+
+
+            document
+                .getElementById(
+                    "relatoriosHoje"
+                )
+                .textContent =
+                relatoriosHoje;
+
+        }
+
+
+
+        /* ==========================================================
+           FECHAR MODAIS
+        ========================================================== */
+
+        function fecharModal() {
+
+            document
+                .getElementById(
+                    "modalRelatorios"
+                )
+                .style.display =
+                "none";
+
+        }
+
+
+        function fecharModalRelatorio() {
+
+            document
+                .getElementById(
+                    "modalNovoRelatorio"
+                )
+                .style.display =
+                "none";
+
+
+            clienteAtual =
+                null;
+
+        }
+
+
+
+        /* ==========================================================
+           PROTEÇÃO CONTRA HTML
+        ========================================================== */
+
+        function escaparHTML(
+            texto
+        ) {
+
+            return String(texto)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+
+        /* ==========================================================
+           INICIAR
+        ========================================================== */
+
+        atualizarTela();
 
     </script>
+
 
 </body>
 
